@@ -18,6 +18,12 @@ para alertar a discrepância.
 
 \* 1 RTC (Real Time Clock)
 
-\* 1 protoboard
+\* 1 Protoboard
+
+\* X Jumpers
+
+\* 3 LEDs
+
+\* X Resistores
 
 ### Funcionalidade:
