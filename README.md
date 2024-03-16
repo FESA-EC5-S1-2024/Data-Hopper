@@ -1,4 +1,4 @@
-# Project-Data-Hopper
+# Data-Hopper
 ## Objetivo:
 O objetivo do Data Hopper é realizar padronizadamente leituras de luz, temperatura e umidade, apresentando esses valores no visor LCD e 
 fazendo o backup desses valores em um EEPROM Data Logger, para que seja feito um cálculo da média ponderada dos valores guardados, assim estabelecendo
