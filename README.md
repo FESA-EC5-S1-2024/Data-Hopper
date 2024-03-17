@@ -20,27 +20,20 @@ O objetivo do dispositivo é realizar padronizadamente leituras de luminosidade,
 
 ## Especificações técnicas
 ### Materiais utilizados
-\* 1 MCU (Atmega 328P) - Arduino Uno R3
-
-\* 1 LDR + Resistor 10KOhm
-
-\* 1 DHT-11 (Sensor de temperatura e umidade)
-
-\* 1 LCD 16x2 - I2C
-
-\* 1 Bateria de 9V + suporte para bateria
-
-\* 1 RTC (Real Time Clock)
-
-\* 1 Protoboard
-
-\* 35 Jumpers
-
-\* 3 LEDs
-
-\* 5 Resistores 330 Ohms 
-
-\* 2 Resistores 10k Ohms 
+| Quantidade | Componente                                         |
+|------------|----------------------------------------------------|
+| 1          | Piezo Buzzer                                       |
+| 1          | LCD1602-I2C                                        |
+| 1          | Arduino Uno (Rev3)                                 |
+| 1          | DS1307 RTC (v1.1)                                  |
+| 1          | LED Vermelho                                       |
+| 1          | LED Amarelo                                        |
+| 1          | LED Verde                                          |
+| 1          | DHT11 (Sensor de Umidade e Temperatura)            |
+| 1          | LDR (fotocélula)                                   |
+| 5          | Resistor (330Ω)                                    |
+| 2          | Resistor (10kΩ)                                    |
+| 2          | Pushbutton                                         |
 
 ### Funcionalidade
 >TODO
