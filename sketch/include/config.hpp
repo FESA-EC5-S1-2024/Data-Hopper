@@ -31,4 +31,6 @@ extern RTC_DS3231 rtc;
 // Inicializando o objeto do dht
 extern DHT dht;
 
+extern size_t EEPROM_Pointer;
+
 const char nomeEmpresa[] = "DATAHOPPER";
