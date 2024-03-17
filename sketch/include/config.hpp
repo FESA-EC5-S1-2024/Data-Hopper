@@ -1,8 +1,8 @@
 #pragma once
 
+#include <DHT.h>
 #include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
-#include <DHT.h>
 
 // Pinons analógicos
 #define DHT_PIN A1
@@ -18,7 +18,7 @@
 #define BUTTON1_INPUT_PIN 6
 
 // Buzzer de alerta
-//#define HUMI_BUZZER_PIN 7
+// #define HUMI_BUZZER_PIN 7
 
 // Inicializando o lcd
 extern LiquidCrystal_I2C lcd;
