@@ -4,13 +4,7 @@
 // Arquivos Externos
 #include "include/config.hpp"
 #include "include/logo.hpp"
-
-
-
-// Seletor de escala de temperatura
-struct EscalaTemperatura {
-  unsigned char seletor : 2;
-} escala = {.seletor = 0};
+#include "include/medicoes.hpp"
 
 // Definição de estado de Botões
 struct botoes {
@@ -18,15 +12,16 @@ struct botoes {
   bool estado_botao2 : 1;
 } botoes = {.estado_botao1 = 0, .estado_botao2 = 0};
 
-// Variaveis físicas a serem mostradas
-struct Medidas {
-  unsigned int temperatura: 7;
-  unsigned int humidade : 7;
-  unsigned int luminosidade : 7;
-} medicoes = {.temperatura = 0, .humidade = 0, .luminosidade = 0};
+// Controle de tempo
+unsigned long marcacao_troca_de_escala = 0;
+unsigned long temporizador_reset = 0;
+unsigned long ultima_medicao_media = 0;
+unsigned long ultima_medicao_visualizacao = 0;
+unsigned long tempo_medicao_media = 10000;
 
-unsigned long marcacao = 0;
-const unsigned long intervalo = 300;
+const unsigned long tempo_reset = 5000;
+const unsigned long tempo_troca_medidas = 5000;
+const unsigned long intervalo_troca_de_escala = 300;
 
 void setup() {
 
@@ -55,102 +50,51 @@ void loop() {
 
   // Leituras físicas
   leituraTemperatura();
-  leituraHumidade();
+  leituraUmidade();
   leituraLuminosidade();
+
+
+  //Visualizações
+  if((millis() - ultima_medicao_visualizacao) >= tempo_troca_medidas){
+
+    ultima_medicao_visualizacao = millis();
+    apresentacaoMedicaoTempUmid();
+
+  }
+  else{
+
+    apresentacaoMedicaoLumi();
+
+  }
+
+  // Valores para média
+  if((millis() - ultima_medicao_media) >= tempo_medicao_media){
+    ultima_medicao_media = millis();
+
+    // Chamada da função para a passagem dos valores para a realização da média
+
+  }
 
   // Leitura do primeiro botão - troca de escala de temperatura
   botoes.estado_botao1 = digitalRead(BUTTON1_INPUT_PIN);
-  if (botoes.estado_botao1 == HIGH && ((millis() - marcacao) >= intervalo)) {
-    marcacao = millis();
+  if (botoes.estado_botao1 == HIGH && ((millis() - marcacao_troca_de_escala) >= intervalo_troca_de_escala)) {
+    marcacao_troca_de_escala = millis();
     mudaEscala();
   }
 
-  // Leitura do segundo botão - reset dos processos
-  botoes.estado_botao2 = digitalRead(BUTTON0_INPUT_PIN);
-  if (botoes.estado_botao2 == HIGH) {
-    resetEEPROM();
-  }
-}
+  // Leitura do segundo botão - reset da EEPROM
+  temporizador_reset = millis();
+  while(digitalRead(BUTTON0_INPUT_PIN) == HIGH && digitalRead(BUTTON1_INPUT_PIN) == HIGH){
 
-void leituraHumidade() {
+     if((millis() - temporizador_reset) >= tempo_reset){
+       resetEEPROM();
+       apresentacaoReset();
+      }
 
-  lcd.setCursor(0, 1);
+    }
 
-  lcd.print("Humi.:");
-  lcd.print(dht.readHumidity());
-  lcd.print(" %");
-
-  medicoes.humidade = dht.readHumidity();
-
-  if(!(medicoes.humidade > 30.0 && medicoes.humidade < 50.0)){
-        tone(HUMI_BUZZER_PIN, 440, 100);
-        tone(HUMI_BUZZER_PIN, 440, 100);
   }
 
-}
-
-void leituraTemperatura() {
-
-  lcd.setCursor(0, 0);
-  lcd.print("Temp.:");
-
-  medicoes.temperatura = (char) dht.readTemperature();
-
-  if (!(medicoes.temperatura > 15.0 && medicoes.temperatura < 25.0)) {
-    digitalWrite(TEMP_LED_PIN, HIGH);
-  } else {
-    digitalWrite(TEMP_LED_PIN, LOW);
-  }
-
-  switch (escala.seletor) {
-  case 0:
-    lcd.print(medicoes.temperatura);
-    lcd.print((char)223);
-    lcd.print(" C");
-    break;
-
-  case 1:
-    lcd.print(dht.readTemperature(true));
-    lcd.print((char)223);
-    lcd.print(" F");
-    break;
-
-  case 2:
-    lcd.print(dht.readTemperature() + 273.15);
-    lcd.print(" K");
-    break;
-  }
-}
-
-void leituraLuminosidade() {
-
-  medicoes.luminosidade = map(analogRead(LDR_PIN), 0, 1023, 100, 0);
-
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(medicoes.luminosidade);
-
-  delay(5000);
-}
-
-void mudaEscala() {
-
-  lcd.clear();
-
-  switch (escala.seletor) {
-
-  case 0:
-    escala.seletor = 1;
-    break;
-
-  case 1:
-    escala.seletor = 2;
-    break;
-
-  case 2:
-    escala.seletor = 0;
-    break;
-  }
 }
 
 void resetEEPROM() {
