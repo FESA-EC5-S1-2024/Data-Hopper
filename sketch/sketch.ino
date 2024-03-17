@@ -4,7 +4,7 @@
 // Arquivos Externos
 #include "include/config.hpp"
 #include "include/logo.hpp"
-#include "include/medicoes.hpp"
+#include "include/medidas.hpp"
 
 // Definição de estado de Botões
 struct botoes {
@@ -22,6 +22,8 @@ unsigned long tempo_medicao_media = 10000;
 const unsigned long tempo_reset = 5000;
 const unsigned long tempo_troca_medidas = 5000;
 const unsigned long intervalo_troca_de_escala = 300;
+
+void resetEEPROM();
 
 void setup() {
 
@@ -53,50 +55,42 @@ void loop() {
   leituraUmidade();
   leituraLuminosidade();
 
-
-  //Visualizações
-  if((millis() - ultima_medicao_visualizacao) >= tempo_troca_medidas){
+  // Visualizações
+  if ((millis() - ultima_medicao_visualizacao) >= tempo_troca_medidas) {
 
     ultima_medicao_visualizacao = millis();
     apresentacaoMedicaoTempUmid();
 
-  }
-  else{
+  } else {
 
     apresentacaoMedicaoLumi();
-
   }
 
   // Valores para média
-  if((millis() - ultima_medicao_media) >= tempo_medicao_media){
+  if ((millis() - ultima_medicao_media) >= tempo_medicao_media) {
     ultima_medicao_media = millis();
 
     // Chamada da função para a passagem dos valores para a realização da média
-
   }
 
   // Leitura do primeiro botão - troca de escala de temperatura
   botoes.estado_botao1 = digitalRead(BUTTON1_INPUT_PIN);
-  if (botoes.estado_botao1 == HIGH && ((millis() - marcacao_troca_de_escala) >= intervalo_troca_de_escala)) {
+  if (botoes.estado_botao1 == HIGH &&
+      ((millis() - marcacao_troca_de_escala) >= intervalo_troca_de_escala)) {
     marcacao_troca_de_escala = millis();
     mudaEscala();
   }
 
   // Leitura do segundo botão - reset da EEPROM
   temporizador_reset = millis();
-  while(digitalRead(BUTTON0_INPUT_PIN) == HIGH && digitalRead(BUTTON1_INPUT_PIN) == HIGH){
+  while (digitalRead(BUTTON0_INPUT_PIN) == HIGH &&
+         digitalRead(BUTTON1_INPUT_PIN) == HIGH) {
 
-     if((millis() - temporizador_reset) >= tempo_reset){
-       resetEEPROM();
-       apresentacaoReset();
-      }
-
+    if ((millis() - temporizador_reset) >= tempo_reset) {
+      resetEEPROM();
+      apresentacaoReset();
     }
-
   }
-
 }
 
-void resetEEPROM() {
-
-}
+void resetEEPROM() {}

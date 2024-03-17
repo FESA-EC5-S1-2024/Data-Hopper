@@ -1,25 +1,17 @@
 #include "../include/config.hpp"
 #include "../include/medidas.hpp"
 
-struct Medidas medidas = {.temperatura = 0.0, .umidade = 0.0, .luminosidade = 0.0};
+struct Medidas medicoes = {
+    .temperatura = 0.0, .umidade = 0.0, .luminosidade = 0.0};
 struct EscalaTemperatura escala = {.seletor = 0};
 
-void leituraTemperatura() {
+void leituraTemperatura() { medicoes.temperatura = dht.readTemperature(); }
 
-  medicoes.temperatura = dht.readTemperature();
-
-}
-
-void leituraUmidade() {
-
-  medicoes.humidade = dht.readHumidity();
-
-}
+void leituraUmidade() { medicoes.umidade = dht.readHumidity(); }
 
 void leituraLuminosidade() {
 
   medicoes.luminosidade = map(analogRead(LDR_PIN), 0, 1023, 100, 0);
-
 }
 
 void mudaEscala() {
@@ -38,10 +30,9 @@ void mudaEscala() {
     escala.seletor = 0;
     break;
   }
-
 }
 
-void apresentacaoMedicaoTempUmid(){
+void apresentacaoMedicaoTempUmid() {
 
   lcd.clear();
   lcd.setCursor(0, 0);
@@ -52,23 +43,22 @@ void apresentacaoMedicaoTempUmid(){
 
   switch (escala.seletor) {
 
-    case 0:
+  case 0:
     lcd.print(medicoes.temperatura);
     lcd.print((char)223);
     lcd.print(" C");
     break;
 
-    case 1:
+  case 1:
     lcd.print(((medicoes.temperatura) * 1.8) + 32);
     lcd.print((char)223);
     lcd.print(" F");
     break;
 
-    case 2:
+  case 2:
     lcd.print(medicoes.temperatura + 273.15);
     lcd.print(" K");
     break;
-
   }
 
   // Print umidade
@@ -76,10 +66,9 @@ void apresentacaoMedicaoTempUmid(){
   lcd.print("Umid.: ");
   lcd.print(medicoes.umidade);
   lcd.print(" %");
-
 }
 
-void apresentacaoMedicaoLumi(){
+void apresentacaoMedicaoLumi() {
 
   lcd.clear();
   lcd.setCursor(0, 0);
@@ -87,15 +76,13 @@ void apresentacaoMedicaoLumi(){
   lcd.print("Lumi.: ");
   lcd.print(medicoes.luminosidade);
   lcd.print(" %");
-
 }
 
-void apresentacaoReset(){
+void apresentacaoReset() {
 
   lcd.clear();
   lcd.setCursor(0, 0);
 
-  lcd.print("EEPROM REINICIADA!!);
+  lcd.print("EEPROM REINICIADA!!");
   delay(5000);
-
 }
