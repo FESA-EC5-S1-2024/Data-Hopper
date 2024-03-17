@@ -4,7 +4,12 @@
 // Arquivos Externos
 #include "include/config.hpp"
 #include "include/logo.hpp"
-#include "include/medidas.hpp"
+#include "include/alert.hpp"
+
+// Seletor de escala de temperatura
+struct EscalaTemperatura {
+  unsigned char seletor : 2;
+} escala = {.seletor = 0};
 
 // Definição de estado de Botões
 struct botoes {
