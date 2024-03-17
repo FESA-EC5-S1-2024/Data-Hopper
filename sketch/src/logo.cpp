@@ -2,29 +2,93 @@
 #include "../include/logo.hpp"
 
 // Desenho da Apresentação
-byte grasshopper1[] = {0b00000, 0b00000, 0b00000, 0b00000,
-                       0b00000, 0b01111, 0b10001, 0b01111};
+byte grasshopper0[] = {
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00011,
+  B01100,
+  B10001,
+  B01111
+};
 
-byte grasshopper2[] = {0b00000, 0b00000, 0b00000, 0b00000,
-                       0b11100, 0b11010, 0b10001, 0b01000};
+byte grasshopper1[] = {
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B11100,
+  B00010,
+  B00001,
+  B10000
+};
 
-byte grasshopper3[] = {0b00000, 0b00000, 0b00000, 0b00000,
-                       0b00000, 0b00001, 0b11111, 0b00000};
+byte grasshopper2[] = {
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00001,
+  B00001,
+  B11111,
+  B00000
+};
 
-byte grasshopper4[] = {0b00010, 0b00100, 0b01000, 0b11110,
-                       0b00001, 0b00001, 0b00010, 0b11100};
+byte grasshopper3[] = {
+  B00010,
+  B00100,
+  B01000,
+  B11110,
+  B00001,
+  B00001,
+  B00010,
+  B11100
+};
 
-byte grasshopper5[] = {0b00110, 0b00100, 0b00101, 0b00101,
-                       0b00101, 0b00101, 0b01010, 0b11100};
+byte grasshopper4[] = {
+  B00100,
+  B00101,
+  B00101,
+  B00101,
+  B00101,
+  B00101,
+  B01010,
+  B11100
+};
 
-byte grasshopper6[] = {0b01111, 0b10000, 0b01110, 0b00001,
-                       0b00000, 0b00000, 0b00000, 0b00000};
+byte grasshopper5[] = {
+  B01111,
+  B00000,
+  B11111,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000
+};
 
-byte grasshopper7[] = {0b11001, 0b01000, 0b00100, 0b11010,
-                       0b00111, 0b00000, 0b00000, 0b00000};
+byte grasshopper6[] = {
+  B10000,
+  B01000,
+  B00100,
+  B11111,
+  B00101,
+  B00101,
+  B01010,
+  B11100
+};
 
-byte grasshopper8[] = {0b01000, 0b01000, 0b01000, 0b10000,
-                       0b11000, 0b10110, 0b01001, 0b00110};
+byte grasshopper7[] = {
+  B01000,
+  B01000,
+  B01000,
+  B11000,
+  B10100,
+  B10110,
+  B01001,
+  B00110
+};
 
 void entradaEmpresa() {
 
@@ -42,14 +106,14 @@ void entradaEmpresa() {
     delay(100);
   }
 
-  lcd.createChar(0, grasshopper1);
-  lcd.createChar(1, grasshopper2);
-  lcd.createChar(2, grasshopper3);
-  lcd.createChar(3, grasshopper4);
-  lcd.createChar(4, grasshopper5);
-  lcd.createChar(5, grasshopper6);
-  lcd.createChar(6, grasshopper7);
-  lcd.createChar(7, grasshopper8);
+  lcd.createChar(0, grasshopper0);
+  lcd.createChar(1, grasshopper1);
+  lcd.createChar(2, grasshopper2);
+  lcd.createChar(3, grasshopper3);
+  lcd.createChar(4, grasshopper4);
+  lcd.createChar(5, grasshopper5);
+  lcd.createChar(6, grasshopper6);
+  lcd.createChar(7, grasshopper7);
 
   lcd.setCursor(9, 0);
   lcd.write(byte(0));
