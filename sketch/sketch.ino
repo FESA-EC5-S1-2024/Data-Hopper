@@ -160,6 +160,15 @@ void entradaEmpresa(){
     lcd.print(nomeEmpresa[i]);
     delay(100);
   }
+  
+  lcd.createChar(0, grasshopper1);
+  lcd.createChar(1, grasshopper2);
+  lcd.createChar(2, grasshopper3);
+  lcd.createChar(3, grasshopper4);
+  lcd.createChar(4, grasshopper5);
+  lcd.createChar(5, grasshopper6);
+  lcd.createChar(6, grasshopper7);
+  lcd.createChar(7, grasshopper8);
 
   lcd.setCursor(9, 0);
   lcd.write(byte(0));
