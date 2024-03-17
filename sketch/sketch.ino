@@ -1,38 +1,8 @@
-// Pinons analógicos
-#define DHT_PIN A2
-#define LDR_PIN A3
-
-// Pinos de alerta
-#define TEMP_LED_PIN 2
-#define HUMI_LED_PIN 3
-#define LUZ_LED_PIN 4
-
-// Botões de ações
-#define BUTTON1_INPUT_PIN 5
-#define BUTTON2_INPUT_PIN 6
-
-// Buzzer de alerta
-//#define HUMI_BUZZER_PIN 7
-
-// Lib do LDC I2C - Display
-#include<LiquidCrystal_I2C.h>
-
 // Lib da configuração dos cabos analógicos
 #include<Wire.h>
 
-// Lib do RTC - Real Time Clock
-#include "RTClib.h"
-
-// Lib do DHT22 - sensor de temperatura
-#include <DHT.h>
-
+#include "include/config.hpp"
 #include "include/logo.hpp"
-
-// Inicializando os objetos
-LiquidCrystal_I2C lcd(0x27,  16, 2);
-
-RTC_DS3231 rtc;
-DHT dht(DHT_PIN, DHT11);
 
 // Seletor de escala de temperatura
 struct EscalaTemperatura{
@@ -52,8 +22,6 @@ struct botoes{
 unsigned long marcacao = 0;
 
 const unsigned long intervalo = 300;
-
-const char nomeEmpresa[] = "DATAHOPPER";
 
 void setup() {
 
