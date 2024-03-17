@@ -16,7 +16,7 @@
 Data Hopper é um dispositivo baseado na plataforma Arduino UNO R3 capaz de medir e apresentar ao usuário os valores médios de luminosidade, temperatura e umidade de um ambiente industrial a qual estiver inserido em um display, além de armazenar e apresentar os instantes em que os valores estiverem fora dos intervalos especificados.
 
 ## Objetivo
-O objetivo do dispositivo é realizar padronizadamente leituras de luminosidade, temperatura e umidade, apresentando os resultados no visor LCD e realizando o armazenamento dos valores em um EEPROM Data Logger, a fim de realizar um cálculo da média ponderada, estabelecendo níveis de referência a se limitar a mudança desses valores. Caso os níveis de referência sejam ultrapassados ou não sejam atingidos pelo sensor DHT-11, será soado um alarme (buzzer) para alertar a discrepância e um ou mais LEDs serão acesos para indicar a leitura discrepante.
+O objetivo principal é realizar padronizadamente o monitoramento das condições ambientais em ambientes industriais, permitindo calcular a média ponderada, estabelecer níveis de referência e alertar de forma sonora e visual discrepâncias das variaveis monitoradas.
 
 ## Especificações técnicas
 ### Materiais utilizados
@@ -36,7 +36,7 @@ O objetivo do dispositivo é realizar padronizadamente leituras de luminosidade,
 | 2          | Pushbutton                                         |
 
 ### Funcionalidade
->TODO
+O dispositivo é capaz de medir e exibir os valores médios de luminosidade, temperatura e umidade de um ambiente industrial em um display. Com a ação de um EEPROM Data Logger, ele lê e armazena os instantes em que os valores estão fora dos intervalos especificados, fornecendo ontrole sobre as condições ambientais. Casos os valores de referência sejam ultrapassados ou nao atingidos pelo sensor DHT-11, será acionado um alarme sonoro (buzzer) para alertar a discrepância e um ou mais LEDs serão acesos para indicar a leitura discrepante.
 
 ### Manual de operação do Data Hopper
 ![Manual](doc/Manual.png)
