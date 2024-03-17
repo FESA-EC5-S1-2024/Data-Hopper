@@ -26,7 +26,7 @@
 // Lib do DHT22 - sensor de temperatura
 #include <DHT.h>
 
-#include "logo.h"
+#include "logo.hpp"
 
 // Inicializando os objetos
 LiquidCrystal_I2C lcd(0x27,  16, 2);
