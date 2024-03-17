@@ -4,8 +4,7 @@
 // Arquivos Externos
 #include "include/config.hpp"
 #include "include/logo.hpp"
-
-
+#include "include/alert.hpp"
 
 // Seletor de escala de temperatura
 struct EscalaTemperatura {
