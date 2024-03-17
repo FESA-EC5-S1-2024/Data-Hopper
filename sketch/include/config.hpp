@@ -1,10 +1,11 @@
 #pragma once
 
+// Libs dos componentes
 #include <DHT.h>
 #include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
 
-// Pinons analógicos
+// Pinos analógicos
 #define DHT_PIN A1
 #define LDR_PIN A2
 
@@ -20,13 +21,13 @@
 // Buzzer de alerta
 // #define HUMI_BUZZER_PIN 7
 
-// Inicializando o lcd
+// Inicializando o objeto do lcd
 extern LiquidCrystal_I2C lcd;
 
-// Inicializando o rtc
+// Inicializando o objeto do rtc
 extern RTC_DS3231 rtc;
 
-// Inicializando o dht
+// Inicializando o objeto do dht
 extern DHT dht;
 
 const char nomeEmpresa[] = "DATAHOPPER";
