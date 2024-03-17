@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Arduino.h"
-
 void leituraTemperatura();
-void leituraHumidade();
+void leituraUmidade();
 void leituraLuminosidade();
 
 void mudaEscala();
 
 void apresentacaoMedicaoTempUmid();
 void apresentacaoMedicaoLumi();
+
+void apresentacaoReset();
 
 struct Medidas {
   float temperatura;
