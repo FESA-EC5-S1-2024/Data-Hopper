@@ -19,7 +19,7 @@
 #define BUTTON1_INPUT_PIN 6
 
 // Buzzer de alerta
-// #define HUMI_BUZZER_PIN 7
+#define HUMI_BUZZER_PIN 7
 
 // Inicializando o objeto do lcd
 extern LiquidCrystal_I2C lcd;

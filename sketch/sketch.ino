@@ -5,6 +5,8 @@
 #include "include/config.hpp"
 #include "include/logo.hpp"
 
+
+
 // Seletor de escala de temperatura
 struct EscalaTemperatura {
   unsigned char seletor : 2;
@@ -66,7 +68,7 @@ void loop() {
   // Leitura do segundo botão - reset dos processos
   botoes.estado_botao2 = digitalRead(BUTTON0_INPUT_PIN);
   if (botoes.estado_botao2 == HIGH) {
-    resetFunc();
+    resetEEPROM();
   }
 }
 
@@ -78,9 +80,9 @@ void leituraHumidade() {
   lcd.print(dht.readHumidity());
   lcd.print(" %");
 
-  medicoes.umidade = dht.readHumidity();
+  medicoes.humidade = dht.readHumidity();
 
-  if(!(medicoes.umidade > 30.0 && medicoes.umidade < 50.0)){
+  if(!(medicoes.humidade > 30.0 && medicoes.humidade < 50.0)){
         tone(HUMI_BUZZER_PIN, 440, 100);
         tone(HUMI_BUZZER_PIN, 440, 100);
   }
@@ -151,5 +153,6 @@ void mudaEscala() {
   }
 }
 
-// Função de Reset
-void(* resetFunc) (void) = 0;
+void resetEEPROM() {
+
+}
