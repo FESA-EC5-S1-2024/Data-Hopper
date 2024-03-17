@@ -20,10 +20,12 @@ para alertar a discrepância.
 
 \* 1 Protoboard
 
-\* X Jumpers
+\* 35 Jumpers
 
 \* 3 LEDs
 
-\* X Resistores
+\* 5 Resistores 330 Ohms 
+
+\* 2 Resistores 10k Ohms 
 
 ### Funcionalidade:
