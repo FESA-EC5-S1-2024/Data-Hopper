@@ -217,22 +217,7 @@ void entradaEmpresa(){
   lcd.setCursor(12, 1);
   lcd.write(byte(7));
 
-  intervalo_millis(2500);
+  delay(2500);
   lcd.clear();
-
 }
 
-void intervalo_millis(int tempo){
-
-  while(true){
-
-    if(!((millis() - marcacao) >= tempo)){
-      marcacao = millis();
-    }
-    else{
-      break;
-      }
-    
-    }
-  
-  }
