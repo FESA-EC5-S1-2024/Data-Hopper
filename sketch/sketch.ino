@@ -2,9 +2,9 @@
 #include <Wire.h>
 
 // Arquivos Externos
+#include "include/alert.hpp"
 #include "include/config.hpp"
 #include "include/logo.hpp"
-#include "include/alert.hpp"
 
 // Seletor de escala de temperatura
 struct EscalaTemperatura {
@@ -19,7 +19,7 @@ struct botoes {
 
 // Variaveis físicas a serem mostradas
 struct Medidas {
-  unsigned int temperatura: 7;
+  unsigned int temperatura : 7;
   unsigned int humidade : 7;
   unsigned int luminosidade : 7;
 } medicoes = {.temperatura = 0, .humidade = 0, .luminosidade = 0};
@@ -28,6 +28,7 @@ unsigned long marcacao = 0;
 const unsigned long intervalo = 300;
 
 void setup() {
+  warning(0);
 
   // Configurando Input de Botão
   pinMode(BUTTON0_INPUT_PIN, INPUT);
@@ -81,11 +82,10 @@ void leituraHumidade() {
 
   medicoes.humidade = dht.readHumidity();
 
-  if(!(medicoes.humidade > 30.0 && medicoes.humidade < 50.0)){
-        tone(HUMI_BUZZER_PIN, 440, 100);
-        tone(HUMI_BUZZER_PIN, 440, 100);
+  if (!(medicoes.humidade > 30.0 && medicoes.humidade < 50.0)) {
+    tone(HUMI_BUZZER_PIN, 440, 100);
+    tone(HUMI_BUZZER_PIN, 440, 100);
   }
-
 }
 
 void leituraTemperatura() {
@@ -93,7 +93,7 @@ void leituraTemperatura() {
   lcd.setCursor(0, 0);
   lcd.print("Temp.:");
 
-  medicoes.temperatura = (char) dht.readTemperature();
+  medicoes.temperatura = (char)dht.readTemperature();
 
   if (!(medicoes.temperatura > 15.0 && medicoes.temperatura < 25.0)) {
     digitalWrite(TEMP_LED_PIN, HIGH);
@@ -152,6 +152,4 @@ void mudaEscala() {
   }
 }
 
-void resetEEPROM() {
-
-}
+void resetEEPROM() {}
