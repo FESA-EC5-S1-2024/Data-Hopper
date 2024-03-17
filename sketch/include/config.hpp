@@ -4,6 +4,7 @@
 #include <DHT.h>
 #include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
+#include <EEPROM.h>
 
 // Pinos analógicos
 #define DHT_PIN A1
