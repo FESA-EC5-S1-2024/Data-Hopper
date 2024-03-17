@@ -1,4 +1,4 @@
-# Data-Hopper
+![Data_Hopper](doc/Data_Hopper.png)
 ## Objetivo:
 O objetivo do Data Hopper é realizar padronizadamente leituras de luz, temperatura e umidade, apresentando esses valores no visor LCD e 
 fazendo o backup desses valores em um EEPROM Data Logger, para que seja feito um cálculo da média ponderada dos valores guardados, assim estabelecendo
@@ -35,10 +35,10 @@ para alertar a discrepância.
 
 ## Montagem do projeto e seu diagrama elétrico:
 ### Montagem:
-![circuitoFritzing](https://github.com/FESA-EC5-S1-2024/Data-Hopper/assets/162312585/cd6b98c8-3dff-450e-9457-1ca6d39d4847)
+![Montagem](doc/Montagem.png)
 
 ### Diagrama:
-![diagramaEletrico](https://github.com/FESA-EC5-S1-2024/Data-Hopper/assets/162312585/a99bca08-9746-497c-b3a6-81dd6d327afc)
+![Diagrama](doc/Diagrama.jpg)
 
 
 
