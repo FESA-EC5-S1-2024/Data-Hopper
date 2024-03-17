@@ -29,3 +29,13 @@ para alertar a discrepância.
 \* 2 Resistores 10k Ohms 
 
 ### Funcionalidade:
+
+## Montagem do projeto e seu diagrama elétrico:
+### Montagem:
+![circuitoFritzing](https://github.com/FESA-EC5-S1-2024/Data-Hopper/assets/162312585/cd6b98c8-3dff-450e-9457-1ca6d39d4847)
+
+### Diagrama:
+![diagramaEletrico](https://github.com/FESA-EC5-S1-2024/Data-Hopper/assets/162312585/a99bca08-9746-497c-b3a6-81dd6d327afc)
+
+
+
