@@ -34,7 +34,7 @@ O objetivo do dispositivo é realizar padronizadamente leituras de luminosidade,
 >TODO
 
 ### Manual de operação do Data Hopper:
-![Manual](doc/Manual.png){:height="50%" width="50%"}
+![Manual](doc/Manual.png)
 
 A navegação do dispositivo dispõe-se do uso de dois botões acionáveis e um display LCD para exibir as informações processadas ao usuário. A temperatura pode ser apresentada dentre as três escalas disponíveis (Kelvin, Celsius ou Fahreinheit), podendo ser alternada com o acionamento do primeiro botão. Abaixo da temperatura, é apresentada o valor da porcentagem da umidade e, após curtos instantes, é mostrado o valor da luminosidade. O segundo botão alterna entre os valores atuais e os de discrepância registrados, revelando os valores médios e o horário e data do registro.
 
