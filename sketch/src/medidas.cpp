@@ -10,8 +10,11 @@ void leituraTemperatura() { medicoes.temperatura = dht.readTemperature(); }
 void leituraUmidade() { medicoes.umidade = dht.readHumidity(); }
 
 void leituraLuminosidade() {
-
   medicoes.luminosidade = map(analogRead(LDR_PIN), 0, 1023, 100, 0);
+}
+
+void leituraRelogio(){
+  medicoes.now = rtc.now();
 }
 
 void mudaEscala() {
@@ -76,6 +79,18 @@ void apresentacaoMedicaoLumi() {
   lcd.print("Lumi.: ");
   lcd.print(medicoes.luminosidade);
   lcd.print(" %");
+}
+
+void apresentacaoRelogio() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+
+  lcd.print("Hora: ");
+  lcd.print(medicoes.now.hour(), DEC);
+  lcd.print(':');
+  lcd.print(medicoes.now.minute(), DEC);
+  lcd.print(':');
+  lcd.print(medicoes.now.second(), DEC);
 }
 
 void apresentacaoReset() {
