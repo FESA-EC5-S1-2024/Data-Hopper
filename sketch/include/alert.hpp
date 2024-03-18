@@ -8,4 +8,12 @@ struct Alert {
   small luminosity;
 };
 
+struct Medias {
+  float temperatura;
+  float umidade;
+  float luminosidade;
+};
+
 void warning(short type); 
+
+extern Medias medias;

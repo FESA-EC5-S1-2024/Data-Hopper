@@ -2,6 +2,7 @@
 #include "../include/config.hpp"
 
 struct Alert Alerts = {.temperature = 0, .humidity = 0, .luminosity = 0};
+struct Medias medias = {.temperatura = 0, .umidade = 0, .lumisidade = 0}
 
 void warning(short type) {
   switch (type) {

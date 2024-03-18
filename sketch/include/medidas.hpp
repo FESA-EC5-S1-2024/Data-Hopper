@@ -23,3 +23,5 @@ struct Medidas {
 struct EscalaTemperatura {
   unsigned char seletor : 2;
 };
+
+extern Medidas medidas;
