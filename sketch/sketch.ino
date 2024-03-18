@@ -54,16 +54,19 @@ void loop() {
   leituraTemperatura();
   leituraUmidade();
   leituraLuminosidade();
+  leituraRelogio();
 
   // Visualizações
   if ((millis() - ultima_medicao_visualizacao) >= tempo_troca_medidas) {
-
     ultima_medicao_visualizacao = millis();
-    apresentacaoMedicaoTempUmid();
 
-  } else {
-
-    apresentacaoMedicaoLumi();
+    if (ultima_medicao_visualizacao % 15000 >= 10000) {
+      apresentacaoMedicaoTempUmid();
+    } else if (ultima_medicao_visualizacao % 15000 >= 5000) {
+      apresentacaoMedicaoLumi();
+    } else {
+      apresentacaoRelogio();
+    }
   }
 
   // Valores para média
