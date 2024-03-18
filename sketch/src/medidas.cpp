@@ -49,23 +49,23 @@ void apresentacaoMedicaoTempUmid() {
   case 0:
     lcd.print(medicoes.temperatura);
     lcd.print((char)223);
-    lcd.print(" C");
+    lcd.print("C");
     break;
 
   case 1:
     lcd.print(((medicoes.temperatura) * 1.8) + 32);
     lcd.print((char)223);
-    lcd.print(" F");
+    lcd.print("F");
     break;
 
   case 2:
     lcd.print(medicoes.temperatura + 273.15);
-    lcd.print(" K");
+    lcd.print("K");
     break;
   }
 
   // Print umidade
-
+  lcd.setCursor(0, 1);
   lcd.print("Umid.: ");
   lcd.print(medicoes.umidade);
   lcd.print(" %");
