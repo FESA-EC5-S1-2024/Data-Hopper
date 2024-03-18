@@ -9,6 +9,8 @@ struct Measurement measurements = {
 // Inicializando a estrutura de escala de temperatura
 struct TemperatureScale scale = {.selector = 0};
 
+char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
 // Função para ler a temperatura do sensor DHT
 void readTemperature() { measurements.temperature = dht.readTemperature(); }
 
@@ -42,8 +44,6 @@ void changeScale() {
 
 // Função para exibir a medição de temperatura e umidade
 void displayTempHumidMeasurement() {
-
-  lcd.clear();
   lcd.setCursor(0, 0);
 
   lcd.print("Temp.: ");
@@ -64,7 +64,7 @@ void displayTempHumidMeasurement() {
 
   case 2:
     lcd.print(measurements.temperature + 273.15);
-    lcd.print("K");
+    lcd.print(" K");
     break;
   }
 
@@ -77,8 +77,6 @@ void displayTempHumidMeasurement() {
 
 // Função para exibir a medição de luminosidade
 void displayLuminosityMeasurement() {
-
-  lcd.clear();
   lcd.setCursor(0, 0);
 
   lcd.print("Lumi.: ");
@@ -88,21 +86,29 @@ void displayLuminosityMeasurement() {
 
 // Função para exibir o relógio
 void displayClock() {
-  lcd.clear();
   lcd.setCursor(0, 0);
+  lcd.print("Time:");
+  lcd.print(" ");
+  lcd.print(measurements.now.hour());
+  lcd.print(':');
+  lcd.print(measurements.now.minute());
+  lcd.print(':');
+  lcd.print(measurements.now.second());
+  lcd.print("  ");
 
-  lcd.print("Hora: ");
-  lcd.print(measurements.now.hour(), DEC);
-  lcd.print(':');
-  lcd.print(measurements.now.minute(), DEC);
-  lcd.print(':');
-  lcd.print(measurements.now.second(), DEC);
+  lcd.setCursor(0, 1);
+  lcd.print(daysOfTheWeek[measurements.now.dayOfTheWeek()]);
+  lcd.print(" : ");
+  lcd.print(measurements.now.day());
+  lcd.print('/');
+  lcd.print(measurements.now.month());
+  lcd.print('/');
+  lcd.print(measurements.now.year());
+  lcd.print("  ");
 }
 
 // Função para exibir mensagem de reinício da EEPROM
 void displayReset() {
-
-  lcd.clear();
   lcd.setCursor(0, 0);
 
   lcd.print("EEPROM REINICIADA!!");

@@ -9,11 +9,13 @@
 
 // Definição do estado dos botões
 struct buttons {
+  bool button0_state : 1;
   bool button1_state : 1;
-  bool button2_state : 1;
-} buttons = {.button1_state = 0, .button2_state = 0};
+} buttons = {.button0_state = 0, .button1_state = 0};
 
 // Controle de tempo
+unsigned long startMillis = 0;
+unsigned long currentTime = 0;
 unsigned long eeprom_reset_timer = 0;
 unsigned long scale_change_marker = 0;
 unsigned long last_average_measurement = 0;
@@ -28,6 +30,13 @@ const unsigned long scale_change_interval = 300;
 
 void resetEEPROM();
 
+// Definição da limpeza de tela
+struct clearScreen {
+  bool tempHumid : 1;
+  bool clock : 1;
+  bool luminosity : 1;
+} clearScreens = {.tempHumid = true, .clock = true, .luminosity = true};
+
 void setup() {
   warning(0);
 
@@ -38,11 +47,16 @@ void setup() {
   pinMode(LDR_PIN, INPUT);
   pinMode(HUMI_BUZZER_PIN, OUTPUT);
 
+  Serial.begin(9600);
+
+  if (!rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+    abort();
+  }
+
   // Iniciando o sensor de temperatura
   dht.begin();
-
-  // Iniciando a biblioteca de configuração de cabos
-  Wire.begin();
 
   // Iniciando o LCD
   lcd.init();
@@ -50,9 +64,14 @@ void setup() {
 
   // Apresentação da empresa
   companyEntry();
+
+  // Tempo do setup, para subtrair do millis()
+  startMillis = millis();
 }
 
 void loop() {
+  // Define o tempo atual com base no início do loop e não do setup
+  currentTime = millis() - startMillis;
 
   // Leituras físicas
   readTemperature();
@@ -60,22 +79,36 @@ void loop() {
   readLuminosity();
   readClock();
 
-  // Exibições
-  if ((millis() - last_displayed_measurement) >= measurement_change_time) {
-    last_displayed_measurement = millis();
+  // Troca as informações da tela e limpa a cada 5s
+  if ((currentTime % 15000) >= 10000) {
+    if (clearScreens.luminosity) {
+      clearScreens.luminosity = false;
+      clearScreens.clock = true;
 
-    if (last_displayed_measurement % 15000 >= 10000) {
-      displayClock();
-    } else if (last_displayed_measurement % 15000 >= 5000) {
-      displayTempHumidMeasurement();
-    } else {
-      displayLuminosityMeasurement();
+      // Definição a mais para não atualizar a tela com o botão de escala
+      clearScreens.tempHumid = true;
+      lcd.clear();
     }
+    displayLuminosityMeasurement();
+  } else if ((currentTime % 15000) >= 5000) {
+    if (clearScreens.tempHumid) {
+      clearScreens.tempHumid = false;
+      clearScreens.luminosity = true;
+      lcd.clear();
+    }
+    displayTempHumidMeasurement();
+  } else if ((currentTime % 15000) >= 0) {
+    if (clearScreens.clock) {
+      clearScreens.clock = false;
+      clearScreens.tempHumid = true;
+      lcd.clear();
+    }
+    displayClock();
   }
 
   // Valores para a média
-  if ((millis() - last_average_measurement) >= average_measurement_time) {
-    last_average_measurement = millis();
+  if ((currentTime - last_average_measurement) >= average_measurement_time) {
+    last_average_measurement = currentTime;
 
     averages.temperature += measurements.temperature;
     averages.humidity += measurements.humidity;
@@ -83,8 +116,8 @@ void loop() {
   }
 
   // Calculando as médias
-  if ((millis() - last_average_calculation) >= average_calculation_time) {
-    last_average_calculation = millis();
+  if ((currentTime - last_average_calculation) >= average_calculation_time) {
+    last_average_calculation = currentTime;
 
     // Dividir pelo número de medições
     averages.temperature /= 6.0;
@@ -110,19 +143,21 @@ void loop() {
   }
 
   // Lendo o primeiro botão - mudança de escala de temperatura
-  buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
-  if (buttons.button1_state == HIGH &&
-      ((millis() - scale_change_marker) >= scale_change_interval)) {
-    scale_change_marker = millis();
+  buttons.button0_state = digitalRead(BUTTON0_INPUT_PIN);
+  if (buttons.button0_state == HIGH &&
+      ((currentTime - scale_change_marker) >= scale_change_interval)
+      && !clearScreens.tempHumid) {
+    scale_change_marker = currentTime;
     changeScale();
+    lcd.clear();
   }
 
   // Lendo o segundo botão - reset da EEPROM
-  eeprom_reset_timer = millis();
+  eeprom_reset_timer = currentTime;
   while (digitalRead(BUTTON0_INPUT_PIN) == HIGH &&
          digitalRead(BUTTON1_INPUT_PIN) == HIGH) {
 
-    if ((millis() - eeprom_reset_timer) >= eeprom_reset_time) {
+    if ((currentTime - eeprom_reset_timer) >= eeprom_reset_time) {
       resetEEPROM();
       displayReset();
     }
