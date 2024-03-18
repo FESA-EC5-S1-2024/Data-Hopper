@@ -1,134 +1,130 @@
-// Lib da configuração dos cabos analógicos
+// Biblioteca de configuração de cabos analógicos
 #include <Wire.h>
 
-// Arquivos Externos
+// Arquivos externos
 #include "include/alert.hpp"
 #include "include/config.hpp"
 #include "include/logo.hpp"
-#include "include/medidas.hpp"
+#include "include/measurements.hpp"
 
-// Definição de estado de Botões
-struct botoes {
-  bool estado_botao1 : 1;
-  bool estado_botao2 : 1;
-} botoes = {.estado_botao1 = 0, .estado_botao2 = 0};
+// Definição do estado dos botões
+struct buttons {
+  bool button1_state : 1;
+  bool button2_state : 1;
+} buttons = {.button1_state = 0, .button2_state = 0};
 
 // Controle de tempo
-unsigned long temporizador_reset = 0;
-unsigned long marcacao_troca_de_escala = 0;
-unsigned long ultima_medicao_media = 0;
-unsigned long ultimo_calculo_media = 0;
-unsigned long ultima_medicao_visualizacao = 0;
-unsigned long tempo_medicao_media = 10000;
-unsigned long tempo_calculo_media = 60000;
+unsigned long eeprom_reset_timer = 0;
+unsigned long scale_change_marker = 0;
+unsigned long last_average_measurement = 0;
+unsigned long last_average_calculation = 0;
+unsigned long last_displayed_measurement = 0;
+unsigned long average_measurement_time = 10000;
+unsigned long average_calculation_time = 60000;
 
-const unsigned long tempo_reset = 5000;
-const unsigned long tempo_troca_medidas = 5000;
-const unsigned long intervalo_troca_de_escala = 300;
+const unsigned long eeprom_reset_time = 5000;
+const unsigned long measurement_change_time = 5000;
+const unsigned long scale_change_interval = 300;
 
 void resetEEPROM();
 
 void setup() {
   warning(0);
 
-  // Configurando Input de Botão
+  // Configurando a entrada dos botões
   pinMode(BUTTON0_INPUT_PIN, INPUT);
   pinMode(BUTTON1_INPUT_PIN, INPUT);
   pinMode(TEMP_LED_PIN, OUTPUT);
   pinMode(LDR_PIN, INPUT);
   pinMode(HUMI_BUZZER_PIN, OUTPUT);
 
-  // Iniciando Sensor de temperatura
+  // Iniciando o sensor de temperatura
   dht.begin();
 
-  // Iniciando lib de configuração de cabos
+  // Iniciando a biblioteca de configuração de cabos
   Wire.begin();
 
-  // Iniciando LCD
+  // Iniciando o LCD
   lcd.init();
   lcd.clear();
 
   // Apresentação da empresa
-  entradaEmpresa();
+  companyEntry();
 }
 
 void loop() {
 
   // Leituras físicas
-  leituraTemperatura();
-  leituraUmidade();
-  leituraLuminosidade();
-  leituraRelogio();
+  readTemperature();
+  readHumidity();
+  readLuminosity();
+  readClock();
 
-  // Visualizações
-  if ((millis() - ultima_medicao_visualizacao) >= tempo_troca_medidas) {
-    ultima_medicao_visualizacao = millis();
+  // Exibições
+  if ((millis() - last_displayed_measurement) >= measurement_change_time) {
+    last_displayed_measurement = millis();
 
-    if (ultima_medicao_visualizacao % 15000 >= 10000) {
-      apresentacaoMedicaoTempUmid();
-    } else if (ultima_medicao_visualizacao % 15000 >= 5000) {
-      apresentacaoMedicaoLumi();
+    if (last_displayed_measurement % 15000 >= 10000) {
+      displayClock();
+    } else if (last_displayed_measurement % 15000 >= 5000) {
+      displayTempHumidMeasurement();
     } else {
-      apresentacaoRelogio();
+      displayLuminosityMeasurement();
     }
   }
 
-  // Valores para média
-  if ((millis() - ultima_medicao_media) >= tempo_medicao_media) {
-    ultima_medicao_media = millis();
+  // Valores para a média
+  if ((millis() - last_average_measurement) >= average_measurement_time) {
+    last_average_measurement = millis();
 
-    medias.temperatura += medidas.temperatura;
-    medias.umidade += medidas.umidade;
-    medias.luminosidade += medidas.luminosidade;
-
+    averages.temperature += measurements.temperature;
+    averages.humidity += measurements.humidity;
+    averages.luminosity += measurements.luminosity;
   }
 
-  // Calculando Médias
-  if ((millis() - ultimo_calculo_media) >= tempo_calculo_media) {
-    ultimo_calculo_media = millis();
+  // Calculando as médias
+  if ((millis() - last_average_calculation) >= average_calculation_time) {
+    last_average_calculation = millis();
 
-    medias.temperatura /= 6.0;
-    medias.umidade /= 6.0;
-    medias.luminosidade /= 6.0;
+    // Dividir pelo número de medições
+    averages.temperature /= 6.0;
+    averages.humidity /= 6.0;
+    averages.luminosity /= 6.0;
 
-    if(!(medias.umidade > 30.0 && medias.umidade < 50.0)){
-      // Adiciona no contador de problemas na umidade
-      warning(1);
+    if (!(averages.humidity > 30.0 && averages.humidity < 50.0)) {
+      warning(1); // Adiciona ao contador de problemas de umidade
     }
 
-    if(!(medias.temperatura > 15.0 && medias.temperatura < 25.0)){
-      // Adiciona no contador de problemas na temperatura
-      warning(2);
+    if (!(averages.temperature > 15.0 && averages.temperature < 25.0)) {
+      warning(2); // Adiciona ao contador de problemas de temperatura
     }
 
-    if(medias.luminosidade > 30.0)){
-      // Adiciona no contador de problemas na luminosidade
-      warning(3);
+    if (averages.luminosity > 30.0) {
+      warning(3); // Adiciona ao contador de problemas de luminosidade
     }
 
-    // Reset dos valores de média
-    medias.temperatura = 0;
-    medias.umidade = 0;
-    medias.luminosidade = 0;
-
+    // Resetando os valores médios
+    averages.temperature = 0;
+    averages.humidity = 0;
+    averages.luminosity = 0;
   }
 
-  // Leitura do primeiro botão - troca de escala de temperatura
-  botoes.estado_botao1 = digitalRead(BUTTON1_INPUT_PIN);
-  if (botoes.estado_botao1 == HIGH &&
-      ((millis() - marcacao_troca_de_escala) >= intervalo_troca_de_escala)) {
-    marcacao_troca_de_escala = millis();
-    mudaEscala();
+  // Lendo o primeiro botão - mudança de escala de temperatura
+  buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
+  if (buttons.button1_state == HIGH &&
+      ((millis() - scale_change_marker) >= scale_change_interval)) {
+    scale_change_marker = millis();
+    changeScale();
   }
 
-  // Leitura do segundo botão - reset da EEPROM
-  temporizador_reset = millis();
+  // Lendo o segundo botão - reset da EEPROM
+  eeprom_reset_timer = millis();
   while (digitalRead(BUTTON0_INPUT_PIN) == HIGH &&
          digitalRead(BUTTON1_INPUT_PIN) == HIGH) {
 
-    if ((millis() - temporizador_reset) >= tempo_reset) {
+    if ((millis() - eeprom_reset_timer) >= eeprom_reset_time) {
       resetEEPROM();
-      apresentacaoReset();
+      displayReset();
     }
   }
 }

@@ -26,19 +26,21 @@ byte grasshopper6[] = {0b10000, 0b01000, 0b00100, 0b11111,
 byte grasshopper7[] = {0b01000, 0b01000, 0b01000, 0b11000,
                        0b10100, 0b10110, 0b01001, 0b00110};
 
-void entradaEmpresa() {
+const char companyName[] = "DATAHOPPER";
+
+void companyEntry() {
 
   lcd.setCursor(2, 0);
 
   for (int i = 0; i < 4; i++) {
-    lcd.print(nomeEmpresa[i]);
+    lcd.print(companyName[i]);
     delay(100);
   }
 
   lcd.setCursor(2, 1);
 
   for (int i = 4; i < 10; i++) {
-    lcd.print(nomeEmpresa[i]);
+    lcd.print(companyName[i]);
     delay(100);
   }
 

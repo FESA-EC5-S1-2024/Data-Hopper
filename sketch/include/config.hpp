@@ -2,9 +2,9 @@
 
 // Libs dos componentes
 #include <DHT.h>
+#include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
-#include <EEPROM.h>
 
 // Pinos analógicos
 #define DHT_PIN A1
@@ -13,7 +13,7 @@
 // Pinos de alerta
 #define TEMP_LED_PIN 1
 #define HUMI_LED_PIN 2
-#define LUZ_LED_PIN 3
+#define LUMI_LED_PIN 3
 
 // Botões de ações
 #define BUTTON0_INPUT_PIN 5
@@ -26,11 +26,9 @@
 extern LiquidCrystal_I2C lcd;
 
 // Inicializando o objeto do rtc
-extern RTC_DS3231 rtc;
+extern RTC_DS1307 rtc;
 
 // Inicializando o objeto do dht
 extern DHT dht;
 
 extern size_t EEPROM_Pointer;
-
-const char nomeEmpresa[] = "DATAHOPPER";
