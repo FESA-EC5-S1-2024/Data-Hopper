@@ -1,19 +1,21 @@
 #pragma once
 
-typedef unsigned char small;
-
+// Definição da estrutura de alertas
 struct Alert {
-  small temperature;
-  small humidity;
-  small luminosity;
+  unsigned char temperature;
+  unsigned char humidity;
+  unsigned char luminosity;
 };
 
-struct Medias {
-  float temperatura;
-  float umidade;
-  float luminosidade;
+// Definição da estrutura de médias
+struct Average {
+  float temperature;
+  float humidity;
+  float luminosity;
 };
 
-void warning(short type); 
+// Exportando a estrutura de medias
+extern struct Average averages;
 
-extern Medias medias;
+// Criando a definição da função de aviso
+void warning(short type);
