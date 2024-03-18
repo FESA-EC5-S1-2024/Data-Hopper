@@ -7,13 +7,13 @@
 #include <RTClib.h>
 
 // Pinos analógicos
-#define DHT_PIN A1
-#define LDR_PIN A2
+#define DHT_PIN A2
+#define LDR_PIN A3
 
 // Pinos de alerta
-#define TEMP_LED_PIN 1
-#define HUMI_LED_PIN 2
-#define LUMI_LED_PIN 3
+#define TEMP_LED_PIN 2
+#define HUMI_LED_PIN 3
+#define LUMI_LED_PIN 4
 
 // Botões de ações
 #define BUTTON0_INPUT_PIN 5
