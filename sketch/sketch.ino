@@ -5,11 +5,7 @@
 #include "include/alert.hpp"
 #include "include/config.hpp"
 #include "include/logo.hpp"
-
-// Seletor de escala de temperatura
-struct EscalaTemperatura {
-  unsigned char seletor : 2;
-} escala = {.seletor = 0};
+#include "include/medidas.hpp"
 
 // Definição de estado de Botões
 struct botoes {
@@ -17,12 +13,14 @@ struct botoes {
   bool estado_botao2 : 1;
 } botoes = {.estado_botao1 = 0, .estado_botao2 = 0};
 
-// Variaveis físicas a serem mostradas
-struct Medidas {
-  unsigned int temperatura : 7;
-  unsigned int humidade : 7;
-  unsigned int luminosidade : 7;
-} medicoes = {.temperatura = 0, .humidade = 0, .luminosidade = 0};
+// Controle de tempo
+unsigned long temporizador_reset = 0;
+unsigned long marcacao_troca_de_escala = 0;
+unsigned long ultima_medicao_media = 0;
+unsigned long ultimo_calculo_media = 0;
+unsigned long ultima_medicao_visualizacao = 0;
+unsigned long tempo_medicao_media = 10000;
+unsigned long tempo_calculo_media = 60000;
 
 const unsigned long tempo_reset = 5000;
 const unsigned long tempo_troca_medidas = 5000;
@@ -79,7 +77,40 @@ void loop() {
   if ((millis() - ultima_medicao_media) >= tempo_medicao_media) {
     ultima_medicao_media = millis();
 
-    // Chamada da função para a passagem dos valores para a realização da média
+    medias.temperatura += medidas.temperatura;
+    medias.umidade += medidas.umidade;
+    medias.luminosidade += medidas.luminosidade;
+
+  }
+
+  // Calculando Médias
+  if ((millis() - ultimo_calculo_media) >= tempo_calculo_media) {
+    ultimo_calculo_media = millis();
+
+    medias.temperatura /= 6.0;
+    medias.umidade /= 6.0;
+    medias.luminosidade /= 6.0;
+
+    if(!(medias.umidade > 30.0 && medias.umidade < 50.0)){
+      // Adiciona no contador de problemas na umidade
+      warning(1);
+    }
+
+    if(!(medias.temperatura > 15.0 && medias.temperatura < 25.0)){
+      // Adiciona no contador de problemas na temperatura
+      warning(2);
+    }
+
+    if(medias.luminosidade > 30.0)){
+      // Adiciona no contador de problemas na luminosidade
+      warning(3);
+    }
+
+    // Reset dos valores de média
+    medias.temperatura = 0;
+    medias.umidade = 0;
+    medias.luminosidade = 0;
+
   }
 
   // Leitura do primeiro botão - troca de escala de temperatura
