@@ -4,6 +4,7 @@
 #include <DHT.h>
 #include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
+#include <EEPROM.h>
 
 // Pinos analógicos
 #define DHT_PIN A1
@@ -29,5 +30,7 @@ extern RTC_DS3231 rtc;
 
 // Inicializando o objeto do dht
 extern DHT dht;
+
+extern size_t EEPROM_Pointer;
 
 const char nomeEmpresa[] = "DATAHOPPER";

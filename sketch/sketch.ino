@@ -2,10 +2,10 @@
 #include <Wire.h>
 
 // Arquivos Externos
+#include "include/alert.hpp"
 #include "include/config.hpp"
 #include "include/logo.hpp"
 #include "include/medidas.hpp"
-
 // Definição de estado de Botões
 struct botoes {
   bool estado_botao1 : 1;
@@ -26,6 +26,7 @@ const unsigned long intervalo_troca_de_escala = 300;
 void resetEEPROM();
 
 void setup() {
+  warning(0);
 
   // Configurando Input de Botão
   pinMode(BUTTON0_INPUT_PIN, INPUT);

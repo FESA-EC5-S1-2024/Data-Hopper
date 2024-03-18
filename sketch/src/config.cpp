@@ -8,3 +8,6 @@ RTC_DS3231 rtc;
 
 // Inicializando o objeto do dht
 DHT dht(DHT_PIN, DHT11);
+
+// Inicializando ponteiro da EEPROM
+size_t EEPROM_Pointer = 0;
