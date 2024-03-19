@@ -11,9 +11,9 @@
 #define LDR_PIN A3
 
 // Pinos de alerta
-#define TEMP_LED_PIN 2
-#define HUMI_LED_PIN 3
-#define LUMI_LED_PIN 4
+#define TEMP_LED_PIN 2 // Vermelho
+#define HUMI_LED_PIN 3 // Amarelo
+#define LUMI_LED_PIN 4 // Verde
 
 // Botões de ações
 #define BUTTON0_INPUT_PIN 5
