@@ -32,3 +32,4 @@ extern RTC_DS1307 rtc;
 extern DHT dht;
 
 extern size_t EEPROM_Pointer;
+extern size_t EEPROM_Pointer_begin;

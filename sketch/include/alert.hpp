@@ -5,6 +5,7 @@ struct Alert {
   unsigned char temperature;
   unsigned char humidity;
   unsigned char luminosity;
+  unsigned char counter;
 };
 
 // Definição da estrutura de médias
@@ -12,6 +13,7 @@ struct Average {
   float temperature;
   float humidity;
   float luminosity;
+  DateTime now;
 };
 
 // Exportando a estrutura de medias
