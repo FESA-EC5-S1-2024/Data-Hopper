@@ -6,6 +6,7 @@
 #include "include/config.hpp"
 #include "include/logo.hpp"
 #include "include/measurements.hpp"
+#include "include/EEPROM.hpp"
 
 // Definição do estado dos botões
 struct buttons {
@@ -121,6 +122,8 @@ void loop() {
     averages.temperature /= 6.0;
     averages.humidity /= 6.0;
     averages.luminosity /= 6.0;
+    averages.now = rtc.now();
+    write.now = averages.now;
 
     if (!(averages.humidity > 30.0 && averages.humidity < 50.0)) {
       warning(1); // Adiciona ao contador de problemas de umidade
