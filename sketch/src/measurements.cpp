@@ -106,11 +106,3 @@ void displayClock() {
   lcd.print(measurements.now.year());
   lcd.print("  ");
 }
-
-// Função para exibir mensagem de reinício da EEPROM
-void displayReset() {
-  lcd.setCursor(0, 0);
-
-  lcd.print("EEPROM REINICIADA!!");
-  delay(5000);
-}

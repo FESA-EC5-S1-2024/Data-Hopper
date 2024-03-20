@@ -8,15 +8,10 @@
 #include "include/measurements.hpp"
 #include "include/EEPROM.hpp"
 
-// Definição do estado dos botões
-struct buttons {
-  bool button0_state : 1;
-  bool button1_state : 1;
-} buttons = {.button0_state = 0, .button1_state = 0};
-
 // Controle de tempo
 unsigned long startMillis = 0;
 unsigned long currentTime = 0;
+unsigned long eeprom_data_marker = 0;
 unsigned long eeprom_reset_timer = 0;
 unsigned long scale_change_marker = 0;
 unsigned long last_average_measurement = 0;
@@ -26,10 +21,15 @@ unsigned long average_measurement_time = 10000;
 unsigned long average_calculation_time = 60000;
 
 const unsigned long eeprom_reset_time = 5000;
+const unsigned long eeprom_data_interval = 5000;
 const unsigned long measurement_change_time = 5000;
 const unsigned long scale_change_interval = 300;
 
-void resetEEPROM();
+// Definição do estado dos botões
+struct buttons {
+  bool button0_state : 1;
+  bool button1_state : 1;
+} buttons = {.button0_state = 0, .button1_state = 0};
 
 // Definição da limpeza de tela
 struct clearScreen {
@@ -153,96 +153,35 @@ void loop() {
     lcd.clear();
   }
 
-  // Lendo o segundo botão - reset da EEPROM
+  // Lendo o segundo botão - modo de pause e demonstração de valoes da EEPROM
+  buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
+  if (buttons.button1_state == HIGH && (currentTime - eeprom_data_marker) >= eeprom_data_interval){
+
+    eeprom_data_marker = currentTime;
+
+    // Modo de Pausa
+    while(true){
+
+      ReadEEPROM();
+      DisplayEEPROMReadings();
+
+      buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
+      if(buttons.button1_state == HIGH){
+        break;
+      }
+
+    }
+
+  }
+
+  // Lê ambos os botôes - Reset da EEPROM
   eeprom_reset_timer = currentTime;
   while (digitalRead(BUTTON0_INPUT_PIN) == HIGH &&
          digitalRead(BUTTON1_INPUT_PIN) == HIGH) {
 
     if ((currentTime - eeprom_reset_timer) >= eeprom_reset_time) {
-      resetEEPROM();
-      displayReset();
+      ResetEEPROM();
+      DisplayReset();
     }
   }
 }
-
-void leituraHumidade() {
-
-  lcd.setCursor(0, 1);
-
-  lcd.print("Humi.:");
-  lcd.print(dht.readHumidity());
-  lcd.print(" %");
-
-  medicoes.humidade = dht.readHumidity();
-
-  if (!(medicoes.humidade > 30.0 && medicoes.humidade < 50.0)) {
-    tone(HUMI_BUZZER_PIN, 440, 100);
-    tone(HUMI_BUZZER_PIN, 440, 100);
-  }
-}
-
-void leituraTemperatura() {
-
-  lcd.setCursor(0, 0);
-  lcd.print("Temp.:");
-
-  medicoes.temperatura = (char)dht.readTemperature();
-
-  if (!(medicoes.temperatura > 15.0 && medicoes.temperatura < 25.0)) {
-    digitalWrite(TEMP_LED_PIN, HIGH);
-  } else {
-    digitalWrite(TEMP_LED_PIN, LOW);
-  }
-
-  switch (escala.seletor) {
-  case 0:
-    lcd.print(medicoes.temperatura);
-    lcd.print((char)223);
-    lcd.print(" C");
-    break;
-
-  case 1:
-    lcd.print(dht.readTemperature(true));
-    lcd.print((char)223);
-    lcd.print(" F");
-    break;
-
-  case 2:
-    lcd.print(dht.readTemperature() + 273.15);
-    lcd.print(" K");
-    break;
-  }
-}
-
-void leituraLuminosidade() {
-
-  medicoes.luminosidade = map(analogRead(LDR_PIN), 0, 1023, 100, 0);
-
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(medicoes.luminosidade);
-
-  delay(5000);
-}
-
-void mudaEscala() {
-
-  lcd.clear();
-
-  switch (escala.seletor) {
-
-  case 0:
-    escala.seletor = 1;
-    break;
-
-  case 1:
-    escala.seletor = 2;
-    break;
-
-  case 2:
-    escala.seletor = 0;
-    break;
-  }
-}
-
-void resetEEPROM() {}
