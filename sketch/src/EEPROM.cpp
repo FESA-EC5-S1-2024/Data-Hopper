@@ -39,6 +39,24 @@ void ReadEEPROM(byte selectedMode) {
     // Verifica se é modo manual e aguarda pressionar dos botões
     if (selectedMode == 1) {
       while (true) {
+        
+        if (Alerts.selectedMode >= 1 && Alerts.selectedMode <= 3) {
+          lcd.setCursor(0, 0);
+          lcd.print("Pressione o botão");
+          lcd.setCursor(0, 1);
+          lcd.print("Para continuar!");
+        } else if (Alerts.selectedMode >= 4 && Alerts.selectedMode <= 6) {
+          lcd.setCursor(0, 0);
+          lcd.print("Press the button");
+          lcd.setCursor(0, 1);
+          lcd.print("To continue!");
+        } else if (Alerts.selectedMode >= 7 && Alerts.selectedMode <= 9) {
+          lcd.setCursor(0, 0);
+          lcd.print("Presione el botón");
+          lcd.setCursor(0, 1);
+          lcd.print("Para continuar!");
+        }
+        
         buttons.button0_state = digitalRead(BUTTON0_INPUT_PIN);
         if (buttons.button0_state == HIGH) {
           break; // Sai do loop se o botão 0 for pressionado
