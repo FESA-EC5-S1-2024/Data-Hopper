@@ -56,7 +56,7 @@ O __modo de medição__ é responsável por apresentar os valores atuais medidos
 ### Modo de pausa
 O __modo de pausa__ permite verificar os instantes com valores discrepantes armazenados na EEPROM, sendo possível verificar de maneira automática ou manual (de registro em registro). O primeiro botão seleciona a _verificação automática_, e o segundo botão a _verificação manual_.
 Durante a leitura da EEPROM, o primeiro botão é usado para prosseguir ao próximo registro (manual), e o segundo é utilizado para sair do __modo de pausa__. Isso é feito pressionando e segurando o botão, tanto na verificação manual quanto automática.
-Pressionando e segurando ambos os botões por 5 segundos realiza a restauração do sistema e do Data Logger, eliminando todos os registros.
+Pressionando e segurando o primeiro botão por 2 segundos realiza a restauração do sistema e do Data Logger, eliminando todos os registros.
 
 
 ## Montagem do projeto e seu diagrama elétrico
