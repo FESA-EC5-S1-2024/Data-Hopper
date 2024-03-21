@@ -122,13 +122,6 @@ void loop() {
     averages.luminosity = 0;
   }
 
-  // Lendo o primeiro botão - mudança de escala de temperatura
-  buttons.button0_state = digitalRead(BUTTON0_INPUT_PIN);
-  if (buttons.button0_state == HIGH &&
-      ((currentTime() - scale_change_marker) >= SCALE_CHANGE_INTERVAL)) {
-    scale_change_marker = currentTime();
-  }
-
   // Lendo o segundo botão - modo de pause e demonstração de valoes da EEPROM
   buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
   if (buttons.button1_state == HIGH &&
