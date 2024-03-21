@@ -155,8 +155,7 @@ void loop() {
 
   // Lê ambos os botôes - Reset da EEPROM
   eeprom_reset_timer = currentTime();
-  while (digitalRead(BUTTON0_INPUT_PIN) == HIGH &&
-         digitalRead(BUTTON1_INPUT_PIN) == HIGH) {
+  while (digitalRead(BUTTON0_INPUT_PIN) == HIGH) {
 
     if ((currentTime() - eeprom_reset_timer) >= EEPROM_RESET_TIME) {
       ResetEEPROM();
