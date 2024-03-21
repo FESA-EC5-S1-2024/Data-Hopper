@@ -4,10 +4,11 @@
 
 // Definição da estrutura de alertas
 struct Alert {
-  unsigned char temperature;
-  unsigned char humidity;
-  unsigned char luminosity;
-  unsigned char counter;
+  byte temperature;
+  byte humidity;
+  byte luminosity;
+  byte counter;
+  byte selectedMode;
 };
 
 // Definição da estrutura de médias
@@ -17,6 +18,9 @@ struct Average {
   float luminosity;
   DateTime now;
 };
+
+// Exportando a estrutura de alertas
+extern struct Alert Alerts;
 
 // Exportando a estrutura de medias
 extern struct Average averages;

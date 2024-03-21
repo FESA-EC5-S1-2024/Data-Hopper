@@ -26,6 +26,3 @@ void readClock();
 void displayTempHumidMeasurement();
 void displayLuminosityMeasurement();
 void displayClock();
-
-// Criando a definição da função de mudar a escala
-void changeScale();

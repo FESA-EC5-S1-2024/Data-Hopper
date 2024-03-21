@@ -1,4 +1,5 @@
 // Incluindo os recursos necessários
+#include "../include/alert.hpp"
 #include "../include/config.hpp"
 #include "../include/measurements.hpp"
 
@@ -23,52 +24,37 @@ void readLuminosity() {
 // Função para ler o relógio em tempo real
 void readClock() { measurements.now = rtc.now(); }
 
-// Função para mudar a escala de temperatura
-void changeScale() {
-  switch (scale.selector) {
-  case 0:
-    scale.selector = 1;
-    break;
-
-  case 1:
-    scale.selector = 2;
-    break;
-
-  case 2:
-    scale.selector = 0;
-    break;
-  }
-}
-
 // Função para exibir a medição de temperatura e umidade
 void displayTempHumidMeasurement() {
   lcd.setCursor(0, 0);
 
   lcd.print("Temp.: ");
 
-  switch (scale.selector) {
-
-  case 0:
+  if (Alerts.selectedMode == 1 || Alerts.selectedMode == 4 ||
+      Alerts.selectedMode == 7) {
     lcd.print(measurements.temperature);
     lcd.print((char)223);
     lcd.print("C");
-    break;
-
-  case 1:
+  } else if (Alerts.selectedMode == 2 || Alerts.selectedMode == 5 ||
+             Alerts.selectedMode == 8) {
     lcd.print(((measurements.temperature) * 1.8) + 32);
     lcd.print((char)223);
     lcd.print("F");
-    break;
-
-  case 2:
+  } else if (Alerts.selectedMode == 3 || Alerts.selectedMode == 6 ||
+             Alerts.selectedMode == 9) {
     lcd.print(measurements.temperature + 273.15);
     lcd.print(" K");
-    break;
   }
 
-  // Imprimir umidade
   lcd.setCursor(0, 1);
-  lcd.print("Umid.: ");
+  if (Alerts.selectedMode >= 1 && Alerts.selectedMode <= 3) {
+    lcd.print("Umid.: ");
+  } else if (Alerts.selectedMode >= 4 && Alerts.selectedMode <= 6) {
+    lcd.print("Humid.: ");
+  } else if (Alerts.selectedMode >= 7 && Alerts.selectedMode <= 9) {
+    lcd.print("Humed.: ");
+  }
+
   lcd.print(measurements.humidity);
   lcd.print(" %");
 }
@@ -76,8 +62,8 @@ void displayTempHumidMeasurement() {
 // Função para exibir a medição de luminosidade
 void displayLuminosityMeasurement() {
   lcd.setCursor(0, 0);
-
   lcd.print("Lumi.: ");
+
   lcd.print(measurements.luminosity);
   lcd.print(" %");
 }
@@ -85,7 +71,14 @@ void displayLuminosityMeasurement() {
 // Função para exibir o relógio
 void displayClock() {
   lcd.setCursor(0, 0);
-  lcd.print("Time:");
+  if (Alerts.selectedMode >= 1 && Alerts.selectedMode <= 3) {
+    lcd.print("Hora:");
+  } else if (Alerts.selectedMode >= 4 && Alerts.selectedMode <= 6) {
+    lcd.print("Time:");
+  } else if (Alerts.selectedMode >= 7 && Alerts.selectedMode <= 9) {
+    lcd.print("Tiempo:");
+  }
+
   lcd.print(" ");
   lcd.print(measurements.now.hour());
   lcd.print(':');
@@ -95,12 +88,30 @@ void displayClock() {
   lcd.print("  ");
 
   lcd.setCursor(0, 1);
-  lcd.print(daysOfTheWeek[measurements.now.dayOfTheWeek()]);
-  lcd.print(" : ");
-  lcd.print(measurements.now.day());
-  lcd.print('/');
-  lcd.print(measurements.now.month());
-  lcd.print('/');
-  lcd.print(measurements.now.year());
-  lcd.print("  ");
+  if (Alerts.selectedMode >= 1 && Alerts.selectedMode <= 3) {
+    lcd.print(daysOfTheWeekPOR[measurements.now.dayOfTheWeek()]);
+    lcd.print(" : ");
+    lcd.print(measurements.now.day());
+    lcd.print('/');
+    lcd.print(measurements.now.month());
+    lcd.print('/');
+    lcd.print(measurements.now.year());
+  } else if (Alerts.selectedMode >= 4 && Alerts.selectedMode <= 6) {
+    lcd.print(daysOfTheWeekENG[measurements.now.dayOfTheWeek()]);
+
+    lcd.print(measurements.now.month());
+    lcd.print('/');
+    lcd.print(measurements.now.day());
+    lcd.print('/');
+    lcd.print(measurements.now.year());
+    lcd.print(" ");
+  } else if (Alerts.selectedMode >= 7 && Alerts.selectedMode <= 9) {
+    lcd.print(daysOfTheWeekESP[measurements.now.dayOfTheWeek()]);
+    lcd.print(" : ");
+    lcd.print(measurements.now.day());
+    lcd.print('/');
+    lcd.print(measurements.now.month());
+    lcd.print('/');
+    lcd.print(measurements.now.year());
+  }
 }
