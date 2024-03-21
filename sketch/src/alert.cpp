@@ -36,7 +36,7 @@ void warning(short type) {
     break;
   }
 
-  if (type != 0) {
+  if (type != 0 && type < 4) {
     Alerts.counter++;
     WriteEEPROM();
     EEPROM.put(0, Alerts);
