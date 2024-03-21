@@ -140,6 +140,7 @@ void setLanguageAndScale() {
     if (buttons.button1_state == HIGH) {
       lcd.clear();
       Alerts.selectedMode = languageAndScale;
+      warning(4);
       return;
     }
   }
