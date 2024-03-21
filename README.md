@@ -80,4 +80,4 @@ Pressionando e segurando ambos os botões por 5 segundos realiza a restauração
 </details>
 
 ## Vídeo demonstrativo
-[![Watch the video](https://img.youtube.com/vi/1Iskt0_Aga4/maxresdefault.jpg)](https://youtu.be/1Iskt0_Aga4)
+[![Watch the video](https://img.youtube.com/vi/f-D-VfKeB9M/maxresdefault.jpg)](https://youtu.be/f-D-VfKeB9M)
