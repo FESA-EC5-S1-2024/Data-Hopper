@@ -61,9 +61,6 @@ void loop() {
     if (clearScreens.luminosity) {
       clearScreens.luminosity = false;
       clearScreens.clock = true;
-
-      // Definição a mais para não atualizar a tela com o botão de escala
-      clearScreens.tempHumid = true;
       lcd.clear();
     }
     displayLuminosityMeasurement();
