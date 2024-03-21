@@ -1,8 +1,8 @@
 #pragma once
 
 // Libs
-#include "../lib/List/src/List.hpp"
 #include "../include/config.hpp"
+#include <RTClib.h>
 
 // Definição da estrutura de gravação e recuperação de dados na EEPROM
 struct Data {
@@ -19,6 +19,6 @@ void ResetEEPROM();
 void DisplayReset();
 void DisplayEEPROMReadings();
 
-export struct Data write;
-export struct Data read;
-export List<Data> eepromList;
+extern struct Data write;
+extern struct Data read;
+extern int readAdress;

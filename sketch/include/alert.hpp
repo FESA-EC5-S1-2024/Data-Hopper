@@ -1,5 +1,7 @@
 #pragma once
 
+#include <RTClib.h>
+
 // Definição da estrutura de alertas
 struct Alert {
   unsigned char temperature;

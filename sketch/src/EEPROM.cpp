@@ -1,8 +1,9 @@
 #include "../include/EEPROM.hpp"
+#include "../include/config.hpp"
 
-struct Data write = {.average = 0, .alert = 0};
+struct Data write;
 struct Data read;
-List<Data> eepromList = List<Data>();
+int readAddress;
 
 void WriteEEPROM() {
 
@@ -27,9 +28,15 @@ void ReadEEPROM() {
         EEPROM.get(readAddress, read);
         //Atualiza próximo endereço para pegar
         readAddress += sizeof(write);
-        //Coloca na lista
-        eepromList.add(read);
+        
+        DisplayEEPROMReadings();
     }
+	
+	lcd.print("Leitura Realizada!");
+	delay(1500);
+	
+	lcd.clear();
+	
 
 }
 
@@ -41,103 +48,105 @@ void ResetEEPROM() {
 
 void DisplayEEPROMReadings() {
 
-  lcd.setCursor(0, 0);
-  lcd.print("Reading EEPROM...");
-  delay(2000);
-  lcd.clear();
-  
-  for (int i = 0; i < eepromList.getSize(); i++) {
-    lcd.setCursor(0, 0);
-    lcd.print("Error #");
-    lcd.print(i+1);
-    lcd.setCursor(0, 1);
-    lcd.print("Date and Time:");
-    delay(2000);
-    lcd.clear();
+lcd.setCursor(0, 0);
+lcd.print("Reading EEPROM...");
+delay(2000);
+lcd.clear();
 
-    //Display DateTime
-    lcd.setCursor(0, 0);
-    lcd.print("Time:");
-    lcd.print(" ");
+lcd.setCursor(0, 0);
+lcd.print("Error #");
+lcd.print((int)(readAddress - EEPROM_Pointer_begin)/sizeof(read));
+lcd.setCursor(0, 1);
+lcd.print("Date and Time:");
+delay(2000);
+lcd.clear();
 
-    lcd.print(eepromList.get(i).time.hour());
-    lcd.print(':');
-    lcd.print(eepromList.get(i).time.minute());
-    lcd.print(':');
-    lcd.print(eepromList.get(i).time.second());
-    lcd.print("  ");
+//Display DateTime
+lcd.setCursor(0, 0);
+lcd.print("Time:");
+lcd.print(" ");
 
-    lcd.setCursor(0, 1);
-    lcd.print(daysOfTheWeek[eepromList.get(i).time.dayOfTheWeek()]);
-    lcd.print(" : ");
-    lcd.print(eepromList.get(i).time.day());
-    lcd.print('/');
-    lcd.print(eepromList.get(i).time.month());
-    lcd.print('/');
-    lcd.print(eepromList.get(i).time.year());
-    lcd.print("  ");
+lcd.print(read.time.hour());
+lcd.print(':');
+lcd.print(read.time.minute());
+lcd.print(':');
+lcd.print(read.time.second());
+lcd.print("  ");
 
-    delay(2000);
-    lcd.clear();
+lcd.setCursor(0, 1);
+lcd.print(daysOfTheWeek[read.time.dayOfTheWeek()]);
+lcd.print(" : ");
+lcd.print(read.time.day());
+lcd.print('/');
+lcd.print(read.time.month());
+lcd.print('/');
+lcd.print(read.time.year());
+lcd.print("  ");
 
-    lcd.setCursor(0, 0);
-    lcd.print("Error #");
-    lcd.print(i+1);
-    lcd.setCursor(0, 1);
-    lcd.print("Type and Value:");
-    delay(2000);
-    lcd.clear();
+delay(2000);
+lcd.clear();
 
-    //Display Value
-    lcd.setCursor(0, 0);
+lcd.setCursor(0, 0);
+lcd.print("Error #");
+lcd.print((int)(readAddress - EEPROM_Pointer_begin)/sizeof(read));
+lcd.setCursor(0, 1);
+lcd.print("Type and Value:");
+delay(2000);
+lcd.clear();
 
-    switch(eepromList.get(i).alert){
+//Display Value
+lcd.setCursor(0, 0);
 
-      case 1:
+switch(read.alert){
 
-      lcd.setCursor(0,0);
-      lcd.print("Humi. Alert!!");
+  case 1:
 
-      lcd.setCursor(0,1);
+  lcd.setCursor(0,0);
+  lcd.print("Humi. Alert!!");
 
-      lcd.print("Value: ");
-      lcd.print(eepromList.get(i).average);
-      lcd.print(" %");
+  lcd.setCursor(0,1);
 
-      break;
+  lcd.print("Value: ");
+  lcd.print(read.average);
+  lcd.print(" %");
 
-      case 2:
+  break;
 
-      lcd.setCursor(0,0);
-      lcd.print("Temp. Alert!!");
+  case 2:
 
-      lcd.setCursor(0,1);
+  lcd.setCursor(0,0);
+  lcd.print("Temp. Alert!!");
 
-      lcd.print("Value: ");
-      lcd.print(eepromList.get(i).average);
-      lcd.print(" %");
+  lcd.setCursor(0,1);
 
-      break;
+  lcd.print("Value: ");
+  lcd.print(read.average);
+  lcd.print(" %");
 
-      case 3:
+  break;
 
-      lcd.setCursor(0,0);
-      lcd.print("Lumi. Alert!!");
+  case 3:
 
-      lcd.setCursor(0,1);
+  lcd.setCursor(0,0);
+  lcd.print("Lumi. Alert!!");
 
-      lcd.print("Value: ");
-      lcd.print(eepromList.get(i).average);
-      lcd.print(" %");
+  lcd.setCursor(0,1);
 
-      break;
-    }
-   
-    delay(2000);
-    lcd.clear();
-    
-  }
+  lcd.print("Value: ");
+  lcd.print(read.average);
+  lcd.print(" %");
+
+  break;
 }
+
+
+
+delay(2000);
+
+lcd.clear();
+    
+ }
+
 
 void DisplayReset() {
   lcd.setCursor(0, 0);
