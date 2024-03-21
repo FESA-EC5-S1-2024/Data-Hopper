@@ -19,7 +19,7 @@
 Data Hopper é um dispositivo baseado na plataforma Arduino UNO R3 capaz de medir e apresentar ao usuário os valores médios de luminosidade, temperatura e umidade de um ambiente industrial a qual estiver inserido em um display, além de armazenar e apresentar os instantes em que os valores estiverem fora dos intervalos especificados, capaz de guardar até 92 registros.
 
 ## Objetivo
-O objetivo principal é realizar padronizadamente o monitoramento das condições ambientais em ambientes industriais, permitindo calcular a média ponderada, estabelecer níveis de referência e alertar de forma sonora e visual discrepâncias das variaveis monitoradas.
+O objetivo principal é realizar padronizadamente o monitoramento das condições ambientais, permitindo calcular a média ponderada, estabelecer níveis de referência e alertar de forma sonora e visual discrepâncias das variáveis monitoradas.
 
 ## Especificações técnicas
 ### Materiais utilizados
@@ -39,7 +39,7 @@ O objetivo principal é realizar padronizadamente o monitoramento das condiçõe
 | 2          | Pushbutton                                         |
 
 ## Funcionalidade
-O dispositivo é capaz de medir e exibir os valores médios de luminosidade, temperatura e umidade de um ambiente industrial em um display. Com a ação de um EEPROM Data Logger, ele lê e armazena os instantes em que os valores estão fora dos intervalos especificados, fornecendo ontrole sobre as condições ambientais. Casos os valores de referência sejam ultrapassados ou nao atingidos pelo sensor DHT-11, será acionado um alarme sonoro (buzzer) para alertar a discrepância e um ou mais LEDs serão acesos para indicar a leitura discrepante.
+O dispositivo é capaz de medir e exibir os valores médios de luminosidade, temperatura e umidade em um display. Com a ação de um EEPROM Data Logger, ele lê e armazena os instantes em que os valores estão fora dos intervalos especificados, fornecendo controle sobre as condições ambientais. Casos os valores de referência sejam ultrapassados ou não atingidos pelo sensor DHT-11, será acionado um alarme sonoro (buzzer) para alertar a discrepância e um ou mais LEDs serão acesos para indicar a leitura discrepante.
 
 ## Manual de operação do Data Hopper
 ![Manual](doc/Manual.png)
