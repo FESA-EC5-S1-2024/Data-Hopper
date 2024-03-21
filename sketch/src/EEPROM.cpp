@@ -122,6 +122,7 @@ byte DisplayOptions() {
 }
 
 void DisplayEEPROMReadings() {
+  lcd.clear();
   lcd.setCursor(0, 0);
   if (Alerts.selectedMode >= 1 && Alerts.selectedMode <= 3) {
     lcd.print("Lendo EEPROM...");
