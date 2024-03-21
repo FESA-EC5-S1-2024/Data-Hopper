@@ -24,6 +24,8 @@ char daysOfTheWeekESP[7][12] = {"Dom", "Lun", "Mar", "Mié",
 
 struct Button buttons = {.button0_state = 0, .button1_state = 0};
 
+bool start_setup = false;
+
 unsigned long startMillis = 0;
 unsigned long eeprom_data_marker = 0;
 unsigned long eeprom_reset_timer = 0;
@@ -34,16 +36,44 @@ unsigned long last_average_measurement = 0;
 unsigned long last_average_calculation = 0;
 unsigned long last_displayed_measurement = 0;
 
+unsigned long button_debounce = 300;
+unsigned long setup_change_marker = 0;
+
 unsigned long totalPauseTime = 0;
 unsigned long startPauseTime = 0;
 
 unsigned long currentTime() { return millis() - startMillis - totalPauseTime; }
 
 void setLanguageAndScale() {
-  byte languageAndScale = 1;
+  byte languageAndScale = 0;
+
+  while(!start_setup){
+
+    lcd.setCursor(0, 0);
+    lcd.print("Press any");
+
+    lcd.setCursor(0, 1);
+    lcd.print("button to start");
+
+    buttons.button0_state = digitalRead(BUTTON0_INPUT_PIN);
+    buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
+    if(buttons.button0_state == HIGH || buttons.button1_state == HIGH){
+      start_setup = true;
+      break;
+    }
+  }
+  
   while (true) {
     buttons.button0_state = digitalRead(BUTTON0_INPUT_PIN);
-    if (buttons.button0_state == HIGH) {
+    if (buttons.button0_state == HIGH && ((currentTime() - setup_change_marker) >= button_debounce) || start_setup) {
+
+      // Verificação de primeiro setup
+      if(start_setup){
+        start_setup = false;
+      }
+      
+      setup_change_marker = currentTime();
+      
       if (languageAndScale == 9) {
         languageAndScale = 1;
       } else {
@@ -53,13 +83,13 @@ void setLanguageAndScale() {
       lcd.clear();
       if (languageAndScale >= 1 && languageAndScale <= 3) {
         lcd.setCursor(0, 0);
-        lcd.print("Lingua Escala");
+        lcd.print("Lingua - Escala");
       } else if (languageAndScale >= 4 && languageAndScale <= 6) {
         lcd.setCursor(0, 0);
-        lcd.print("Language Scale");
+        lcd.print("Language - Scale");
       } else if (languageAndScale >= 7 && languageAndScale <= 9) {
         lcd.setCursor(0, 0);
-        lcd.print("Idioma Escala");
+        lcd.print("Idioma - Escala");
       }
 
       lcd.setCursor(0, 1);
