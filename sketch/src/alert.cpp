@@ -39,12 +39,13 @@ void warning(short type) {
   if (type != 0) {
     Alerts.counter++;
     WriteEEPROM();
-  }
-
-  // Ignora o funcionamento para os dados iniciais
-  if (type) {
     EEPROM.put(0, Alerts);
 
     tone(HUMI_BUZZER_PIN, 440, 100);
+  }
+
+  // Para a linguagem
+  if (type == 4){
+     EEPROM.put(0, Alerts);
   }
 }
