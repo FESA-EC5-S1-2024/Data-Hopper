@@ -50,7 +50,7 @@ A navegação do dispositivo dispõe-se do uso de dois botões acionáveis e um 
 A __configuração inicial__ permite ao usuário alternar entre a exibição das informações: a escala de temperatura e o idioma. As opções podem ser alternadas pelo acionamento do primeiro botão e serem confirmadas com o segundo. As linguagens disponíveis são Inglês, Espanhol e Português, e as escalas de temperatura disponíveis são Kelvin, Celsius ou Fahreinheit.
 
 ### Modo de medição
-O __modo de medição__ é responsável por apresentar os valores atuais medidos pelos sensores, após a __configuração inicial__. A primeira linha mostra a temperatura com a escala desejada, enquanto a segunda mostra o valor da porcentagem da umidade e, após curtos instantes, o valor da luminosidade. O segundo botão alterna com o __modo de pausa__.
+O __modo de medição__ é responsável por apresentar os valores atuais medidos pelos sensores, após a __configuração inicial__. O segundo botão alterna com o __modo de pausa__.
 
 ### Modo de pausa
 O __modo de pausa__ permite verificar os instantes com valores discrepantes armazenados na EEPROM, sendo possível verificar de maneira automática ou manual (de registro em registro). O primeiro botão seleciona a _verificação automática_, e o segundo botão a _verificação manual_.
