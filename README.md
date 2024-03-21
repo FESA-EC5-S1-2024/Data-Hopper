@@ -8,9 +8,10 @@
    1. [Materiais utilizados](#materiais-utilizados)
    2. [Funcionalidade](#funcionalidade)
 4. [Manual de operação do Data Hopper](#manual-de-operação-do-data-hopper)
-   1. [Configuração inicial](#configuração-inicial)
-   2. [Modo de medição](#modo-de-medição)
-   3. [Modo de pausa](#modo-de-pausa)
+   1. [Primeira inicialização](#primeira-inicialização)
+   2. [Configuração inicial](#configuração-inicial)
+   3. [Modo de medição](#modo-de-medição)
+   4. [Modo de pausa](#modo-de-pausa)
 6. [Montagem do projeto e seu diagrama elétrico](#montagem-do-projeto-e-seu-diagrama-elétrico)
    1. [Montagem](#montagem)
    2. [Diagrama](#diagrama)
@@ -45,18 +46,22 @@ O dispositivo é capaz de medir e exibir os valores médios de luminosidade, tem
 ## Manual de operação do Data Hopper
 ![Manual](doc/Manual.png)
 
-A navegação do dispositivo dispõe-se do uso de dois botões acionáveis e um display LCD para exibir as informações processadas ao usuário. O dispositivo possui três modos disponíveis, a __configuração inicial__ ao ser inicializado segurando o primeiro botão, o __modo de medição__ e o __modo de pausa__.
+A navegação do dispositivo dispõe-se do uso de dois botões acionáveis e um display LCD para exibir as informações processadas ao usuário. O dispositivo possui três modos disponíveis, a __configuração inicial__, o __modo de medição__ e o __modo de pausa__.
+
+### Primeira inicialização
+Ao iniciar pela primeira vez, o display irá mostrar o texto "Press any button to start". Apertando o botão esquerdo, ele iniciará o __modo de medição__ com a predefinição da linguagem e escala Português e Celsius. Apertando o botão direito, permitirá ao usuário realizar a __configuração inicial__.
 
 ### Configuração inicial
-A __configuração inicial__ permite ao usuário alternar entre a exibição das informações: a escala de temperatura e o idioma. As opções podem ser alternadas pelo acionamento do primeiro botão e serem confirmadas com o segundo. As linguagens disponíveis são Inglês, Espanhol e Português, e as escalas de temperatura disponíveis são Kelvin, Celsius ou Fahreinheit.
+A __configuração inicial__ permite ao usuário alternar entre a exibição das informações: a escala de temperatura e o idioma. As opções podem ser alternadas pelo acionamento do botão esquerdo e serem confirmadas com o 
+direito. As linguagens disponíveis são Inglês, Espanhol e Português, e as escalas de temperatura disponíveis são Kelvin, Celsius ou Fahreinheit.
 
 ### Modo de medição
-O __modo de medição__ é responsável por apresentar os valores atuais medidos pelos sensores, após a __configuração inicial__. O segundo botão alterna com o __modo de pausa__.
+O __modo de medição__ é responsável por apresentar os valores atuais medidos pelos sensores, após a __configuração inicial__. O botão esquerdo alterna com o __modo de pausa__.
 
 ### Modo de pausa
-O __modo de pausa__ permite verificar os instantes com valores discrepantes armazenados na EEPROM, sendo possível verificar de maneira automática ou manual (de registro em registro). O primeiro botão seleciona a _verificação automática_, e o segundo botão a _verificação manual_.
-Durante a leitura da EEPROM, o primeiro botão é usado para prosseguir ao próximo registro (manual), e o segundo é utilizado para sair do __modo de pausa__. Isso é feito pressionando e segurando o botão, tanto na verificação manual quanto automática.
-Pressionando e segurando o primeiro botão por 2 segundos realiza a restauração do sistema e do Data Logger, eliminando todos os registros.
+O __modo de pausa__ permite verificar os instantes com valores discrepantes armazenados na EEPROM, sendo possível verificar de maneira automática ou manual (de registro em registro). O botão esquerdo seleciona a _verificação automática_, e o botão direito a _verificação manual_.
+Durante a leitura da EEPROM, o botão direito é usado para prosseguir ao próximo registro (manual), e o outro é utilizado para sair do __modo de pausa__. Isso é feito pressionando e segurando o botão esquerdo, tanto na verificação manual quanto automática.
+Pressionando e segurando o botão direito por alguns instantes realiza a restauração do sistema e do Data Logger, eliminando todos os registros.
 
 
 ## Montagem do projeto e seu diagrama elétrico
