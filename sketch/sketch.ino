@@ -150,6 +150,8 @@ void loop() {
     }
     delay(2000);
     totalPauseTime += currentTime() - startPauseTime;
+
+    lcd.noBacklight();
   }
 
   // Lê ambos os botôes - Reset da EEPROM
