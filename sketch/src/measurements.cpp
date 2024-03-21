@@ -98,7 +98,7 @@ void displayClock() {
     lcd.print(measurements.now.year());
   } else if (Alerts.selectedMode >= 4 && Alerts.selectedMode <= 6) {
     lcd.print(daysOfTheWeekENG[measurements.now.dayOfTheWeek()]);
-
+    lcd.print(" : ");
     lcd.print(measurements.now.month());
     lcd.print('/');
     lcd.print(measurements.now.day());
