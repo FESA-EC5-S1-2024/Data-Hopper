@@ -22,7 +22,23 @@
 // Buzzer de alerta
 #define HUMI_BUZZER_PIN 7
 
-extern char daysOfTheWeek[7][12];
+// Tempo das execuções
+#define EEPROM_RESET_TIME 5000
+#define EEPROM_DATA_INTERVAL 5000
+#define SCALE_CHANGE_INTERVAL 300
+#define AVERAGE_MEASUREMENT_TIME 10000
+#define AVERAGE_CALCULATION_TIME 60000
+
+#define MaxCC 8
+
+struct Button {
+  bool button0_state : 1;
+  bool button1_state : 1;
+};
+
+extern char daysOfTheWeekPOR[7][12];
+extern char daysOfTheWeekENG[7][12];
+extern char daysOfTheWeekESP[7][12];
 
 // Inicializando o objeto do lcd
 extern LiquidCrystal_I2C lcd;
@@ -35,3 +51,23 @@ extern DHT dht;
 
 extern size_t EEPROM_Pointer;
 extern size_t EEPROM_Pointer_begin;
+
+extern struct Button buttons;
+
+unsigned long currentTime();
+
+void setLanguageAndScale();
+
+// Controle de tempo
+extern unsigned long startMillis;
+extern unsigned long eeprom_data_marker;
+extern unsigned long eeprom_reset_timer;
+
+extern unsigned long scale_change_marker;
+
+extern unsigned long last_average_measurement;
+extern unsigned long last_average_calculation;
+extern unsigned long last_displayed_measurement;
+
+extern unsigned long totalPauseTime;
+extern unsigned long startPauseTime;

@@ -6,15 +6,17 @@
 
 // Definição da estrutura de gravação e recuperação de dados na EEPROM
 struct Data {
-    DateTime time;
-    float average;
-    char alert;
+  DateTime time;
+  float average;
+  char alert;
 };
 
 // Métodos de acesso a EEPROM
 void WriteEEPROM();
-void ReadEEPROM();
+void ReadEEPROM(byte selectedMode);
 void ResetEEPROM();
+
+byte DisplayOptions();
 
 void DisplayReset();
 void DisplayEEPROMReadings();
