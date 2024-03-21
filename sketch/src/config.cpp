@@ -12,3 +12,6 @@ DHT dht(DHT_PIN, DHT11);
 
 // Inicializando ponteiro da EEPROM
 size_t EEPROM_Pointer = 0;
+size_t EEPROM_Pointer_begin = 0;
+
+char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};

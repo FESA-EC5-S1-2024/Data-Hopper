@@ -9,8 +9,6 @@ struct Measurement measurements = {
 // Inicializando a estrutura de escala de temperatura
 struct TemperatureScale scale = {.selector = 0};
 
-char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-
 // Função para ler a temperatura do sensor DHT
 void readTemperature() { measurements.temperature = dht.readTemperature(); }
 

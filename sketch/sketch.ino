@@ -123,7 +123,7 @@ void loop() {
     averages.humidity /= 6.0;
     averages.luminosity /= 6.0;
     averages.now = rtc.now();
-    write.now = averages.now;
+    write.time = averages.now;
 
     if (!(averages.humidity > 30.0 && averages.humidity < 50.0)) {
       warning(1); // Adiciona ao contador de problemas de umidade
@@ -163,10 +163,9 @@ void loop() {
     while(true){
 
       ReadEEPROM();
-      DisplayEEPROMReadings();
 
       buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
-      if(buttons.button1_state == HIGH){
+      if(buttons.button1_state == LOW){
         break;
       }
 
