@@ -123,6 +123,8 @@ void loop() {
   buttons.button1_state = digitalRead(BUTTON1_INPUT_PIN);
   if (buttons.button1_state == HIGH &&
       (currentTime() - eeprom_data_marker) >= EEPROM_DATA_INTERVAL) {
+
+    lcd.backlight();
     startPauseTime = currentTime();
     eeprom_data_marker = currentTime();
 
