@@ -131,6 +131,7 @@ void loop() {
     byte selectedMode = DisplayOptions();
 
     ReadEEPROM(selectedMode);
+    lcd.clear();
     lcd.setCursor(0, 0);
     if (Alerts.selectedMode >= 1 && Alerts.selectedMode <= 3) {
       lcd.print("Leitura");
@@ -148,10 +149,12 @@ void loop() {
     } else if (Alerts.selectedMode >= 7 && Alerts.selectedMode <= 9) {
       lcd.print("Completada!");
     }
-    delay(2000);
-    totalPauseTime += currentTime() - startPauseTime;
-
+    delay(2000);    
+    
     lcd.noBacklight();
+    lcd.clear();
+
+    totalPauseTime += currentTime() - startPauseTime;
   }
 
   // Lê ambos os botôes - Reset da EEPROM

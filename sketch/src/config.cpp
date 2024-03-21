@@ -19,8 +19,8 @@ char daysOfTheWeekPOR[7][12] = {"Dom", "Seg", "Ter", "Qua",
                                 "Qui", "Sex", "Sab"};
 char daysOfTheWeekENG[7][12] = {"Sun", "Mon", "Tue", "Wed",
                                 "Thu", "Fri", "Sat"};
-char daysOfTheWeekESP[7][12] = {"Dom", "Lun", "Mar", "Mié",
-                                "Jue", "Vie", "Sáb"};
+char daysOfTheWeekESP[7][12] = {"Dom", "Lun", "Mar", "Mie",
+                                "Jue", "Vie", "Sab"};
 
 struct Button buttons = {.button0_state = 0, .button1_state = 0};
 
