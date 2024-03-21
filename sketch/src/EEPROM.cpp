@@ -52,7 +52,7 @@ void ReadEEPROM(byte selectedMode) {
           lcd.print("To continue!");
         } else if (Alerts.selectedMode >= 7 && Alerts.selectedMode <= 9) {
           lcd.setCursor(0, 0);
-          lcd.print("Presione el botón");
+          lcd.print("Presione el boton");
           lcd.setCursor(0, 1);
           lcd.print("Para continuar!");
         }
