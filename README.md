@@ -14,6 +14,7 @@
 6. [Montagem do projeto e seu diagrama elétrico](#montagem-do-projeto-e-seu-diagrama-elétrico)
    1. [Montagem](#montagem)
    2. [Diagrama](#diagrama)
+7. [Vídeo demonstrativo](#vídeo-demonstrativo)
 
 ## Sobre
 Data Hopper é um dispositivo baseado na plataforma Arduino UNO R3 capaz de medir e apresentar ao usuário os valores médios de luminosidade, temperatura e umidade de um ambiente industrial a qual estiver inserido em um display, além de armazenar e apresentar os instantes em que os valores estiverem fora dos intervalos especificados, capaz de guardar até 92 registros.
@@ -39,7 +40,7 @@ O objetivo principal é realizar padronizadamente o monitoramento das condiçõe
 | 2          | Pushbutton                                         |
 
 ## Funcionalidade
-O dispositivo é capaz de medir e exibir os valores médios de luminosidade, temperatura e umidade em um display. Com a ação de um EEPROM Data Logger, ele lê e armazena os instantes em que os valores estão fora dos intervalos especificados, fornecendo controle sobre as condições ambientais. Casos os valores de referência sejam ultrapassados ou não atingidos pelo sensor DHT-11, será acionado um alarme sonoro (buzzer) para alertar a discrepância e um ou mais LEDs serão acesos para indicar a leitura discrepante.
+O dispositivo é capaz de medir e exibir os valores médios de luminosidade, temperatura e umidade em um display. Com a ação de um EEPROM Data Logger, ele lê e armazena os instantes em que os valores estão fora dos intervalos especificados, fornecendo controle sobre as condições ambientais. Casos os valores de referência sejam ultrapassados ou não atingidos pelo sensor DHT-11, será acionado um alarme sonoro (buzzer) para alertar a discrepância e um ou mais LEDs serão acesos para indicar a leitura discrepante. O _LED vermelho_ representa a temperatura, o _LED amarelo_ a umidade e o _LED verde_ a luminosidade.
 
 ## Manual de operação do Data Hopper
 ![Manual](doc/Manual.png)
@@ -78,4 +79,5 @@ Pressionando e segurando ambos os botões por 5 segundos realiza a restauração
 
 </details>
 
-
+## Vídeo demonstrativo
+[![Watch the video](https://img.youtube.com/vi/1Iskt0_Aga4/maxresdefault.jpg)](https://youtu.be/1Iskt0_Aga4)
