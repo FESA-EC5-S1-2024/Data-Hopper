@@ -45,7 +45,7 @@ O dispositivo é capaz de medir e exibir os valores médios de luminosidade, tem
 ## Manual de operação do Data Hopper
 ![Manual](doc/Manual.png)
 
-A navegação do dispositivo dispõe-se do uso de dois botões acionáveis e um display LCD para exibir as informações processadas ao usuário. O dispositivo possui três modos disponíveis, a __configuração inicial__ ao ser inicializado, o __modo de medição__ e o __modo de pausa__.
+A navegação do dispositivo dispõe-se do uso de dois botões acionáveis e um display LCD para exibir as informações processadas ao usuário. O dispositivo possui três modos disponíveis, a __configuração inicial__ ao ser inicializado segurando o primeiro botão, o __modo de medição__ e o __modo de pausa__.
 
 ### Configuração inicial
 A __configuração inicial__ permite ao usuário alternar entre a exibição das informações: a escala de temperatura e o idioma. As opções podem ser alternadas pelo acionamento do primeiro botão e serem confirmadas com o segundo. As linguagens disponíveis são Inglês, Espanhol e Português, e as escalas de temperatura disponíveis são Kelvin, Celsius ou Fahreinheit.
