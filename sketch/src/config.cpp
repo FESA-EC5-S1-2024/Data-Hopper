@@ -24,7 +24,7 @@ char daysOfTheWeekESP[7][12] = {"Dom", "Lun", "Mar", "Mié",
 
 struct Button buttons = {.button0_state = 0, .button1_state = 0};
 
-bool starting_setup = false;
+bool start_setup = false;
 
 unsigned long startMillis = 0;
 unsigned long eeprom_data_marker = 0;
