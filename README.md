@@ -86,3 +86,12 @@ Pressionando e segurando o botão direito por alguns instantes realiza a restaur
 
 ## Vídeo demonstrativo
 [![Watch the video](https://img.youtube.com/vi/f-D-VfKeB9M/maxresdefault.jpg)](https://youtu.be/f-D-VfKeB9M)
+
+## Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull
+requests.
+
+## Licença
+
+Este projeto é licenciado sob a BSD 3-Clause [License](./LICENSE).
